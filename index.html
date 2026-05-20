@@ -41,6 +41,16 @@
         .checkbox-option:hover { background: #f5f2ed; border-color: #c9b8a3; }
         .checkbox-option input { width: auto; margin: 0; accent-color: #c9b8a3; }
         .checkbox-option span { font-size: 0.85rem; color: #4a4a4a; }
+        input[type="file"] { padding: 0.5rem; }
+        input[type="url"] { margin-bottom: 0.5rem; }
+        .file-hint { font-size: 0.8rem; color: #999; margin-bottom: 0.75rem; }
+        .file-preview { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .file-item { background: #f5f2ed; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; color: #4a4a4a; }
+        .links-container { margin-bottom: 0.75rem; }
+        .link-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .link-row input { flex: 1; margin: 0; }
+        .link-row button { background: #e0ddd8; border: none; padding: 0.5rem 0.75rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+        .link-row button:hover { background: #d0cdc8; }
         button.primary { background: #1a1a1a; color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1.5rem; }
         button.primary:hover { opacity: 0.9; }
         footer { text-align: center; padding: 3rem 0 2rem; color: #999; font-size: 0.85rem; }
@@ -127,18 +137,71 @@
             </div>
             <button type="submit" class="primary">Get My Recommendations ✨</button>
         </form>
+
+        <!-- Links & Files Section -->
+        <div class="section" style="margin-top:2rem;background:#f9f7f4;">
+            <div class="section-header"><span class="section-number">📎</span><h2>Links, Photos & Documents (optional)</h2></div>
+            <div class="hint">Share screenshots, inspiration, documents — paste links or attach files</div>
+
+            <label>Links you want to share</label>
+            <div id="links-container">
+                <div class="link-row" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+                    <input type="url" name="link1" placeholder="https://instagram.com/..." style="flex:1;">
+                    <button type="button" onclick="addLinkRow()" style="background:#c9b8a3;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">+</button>
+                </div>
+            </div>
+
+            <label style="margin-top:1rem;">Photos (screenshots, your salon, current apps)</label>
+            <input type="file" name="photos" accept="image/*" multiple onchange="showFileNames(this, 'photo-names')" style="background:#fff;">
+            <p class="file-hint">Select multiple photos at once</p>
+            <div class="file-preview" id="photo-names" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+
+            <label style="margin-top:1rem;">Documents (lists, PDFs, spreadsheets)</label>
+            <input type="file" name="docs" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" onchange="showFileNames(this, 'doc-names')" style="background:#fff;">
+            <p class="file-hint">PDF, Word, Excel, or text files</p>
+            <div class="file-preview" id="doc-names" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+        </div>
+
         <div id="final-response"></div>
+
         <footer>Made for Van by Joe &bull; <a href="https://github.com/joestechsolutions/vans-app">View on GitHub</a></footer>
     </div>
+
     <script>
+        var linkCount = 1;
+        function addLinkRow() {
+            linkCount++;
+            var c = document.getElementById('links-container');
+            var d = document.createElement('div');
+            d.style = 'display:flex;gap:0.5rem;margin-bottom:0.5rem;';
+            d.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..." style="flex:1;"><button type="button" onclick="this.parentElement.remove()" style="background:#d0cdc8;border:none;padding:0.5rem 0.75rem;border-radius:6px;cursor:pointer;">×</button>';
+            c.appendChild(d);
+        }
+        function showFileNames(input, pid) {
+            var p = document.getElementById(pid);
+            p.innerHTML = '';
+            for (var i = 0; i < input.files.length; i++) {
+                var s = document.createElement('span');
+                s.className = 'file-item';
+                s.textContent = input.files[i].name;
+                p.appendChild(s);
+            }
+        }
+
         document.getElementById('session-form').addEventListener('submit', function(e) {
             e.preventDefault();
             var fd = new FormData(e.target), ans = {};
             for (var p of fd) ans[p[0]] = p[1];
-            var cbs = Array.from(document.querySelectorAll('input:checked')).map(function(x) { return x.value; });
+
+            // Collect links
+            var links = [];
+            for (var i = 1; i <= linkCount; i++) {
+                if (ans['link' + i]) links.push(ans['link' + i]);
+            }
+
             var mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
             var vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
-            var ent = {minimal:'Almost none (1-2 taps)',some:'A few quick taps',batch:'After services'};
+            var ent = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
             var t = 'Hi Joe! Here are my answers:\n\n';
             if (ans.priority_module) t += '1. Fix ONE thing: ' + mods[ans.priority_module] + '\n';
             if (ans.data_entry) t += '2. Phone usage: ' + ent[ans.data_entry] + '\n';
@@ -146,12 +209,22 @@
             if (ans.colors) t += '4. Colors: ' + ans.colors + '\n';
             if (ans.pain_point) t += '\nBiggest frustration: ' + ans.pain_point + '\n';
             if (ans.big_want) t += 'Dream feature: ' + ans.big_want + '\n';
+            if (links.length) t += '\nLinks shared:\n' + links.join('\n') + '\n';
+            t += '\n(Photos & documents attached to email)';
+
             var d = document.getElementById('final-response');
-            d.innerHTML = '<div style="background:#f5f2ed;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;"><h3 style="font-size:1.25rem;margin-bottom:0.5rem;">Got it, Van!</h3><p style="color:#666;margin-bottom:1.5rem;">Send this to Joe and we\'ll take it from here.</p><div style="background:#fff;border-radius:10px;padding:1.25rem;text-align:left;margin-bottom:1.5rem;"><p style="font-weight:600;margin-bottom:0.5rem;">Your answers:</p>';
-            if (ans.priority_module) d.innerHTML += '<p style="margin:0.2rem 0;font-size:0.9rem;">• Priority: ' + mods[ans.priority_module] + '</p>';
-            if (ans.vibe) d.innerHTML += '<p style="margin:0.2rem 0;font-size:0.9rem;">• Vibe: ' + vibs[ans.vibe] + '</p>';
-            if (ans.pain_point) d.innerHTML += '<p style="margin:0.5rem 0 0;font-size:0.9rem;font-style:italic;">"' + ans.pain_point + '"</p>';
-            d.innerHTML += '</div><a href="mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(t) + '" style="display:inline-block;background:#1a1a1a;color:#fff;padding:0.85rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;">Email Joe ✉️</a></div>';
+            var html = '<div style="background:#f5f2ed;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;">';
+            html += '<h3 style="font-size:1.25rem;margin-bottom:0.5rem;">Got it, Van!</h3>';
+            html += '<p style="color:#666;margin-bottom:1.5rem;">Send this to Joe — your files are attached!</p>';
+            html += '<div style="background:#fff;border-radius:10px;padding:1.25rem;text-align:left;margin-bottom:1.5rem;font-size:0.9rem;">';
+            if (ans.priority_module) html += '<p style="margin:0.2rem 0;">• Priority: ' + mods[ans.priority_module] + '</p>';
+            if (ans.vibe) html += '<p style="margin:0.2rem 0;">• Vibe: ' + vibs[ans.vibe] + '</p>';
+            if (links.length) html += '<p style="margin:0.2rem 0;">• ' + links.length + ' link(s) shared</p>';
+            if (ans.pain_point) html += '<p style="margin:0.5rem 0 0;font-style:italic;">"' + ans.pain_point + '"</p>';
+            html += '</div>';
+            html += '<a href="mailto:joe@joestechsolutions.com?subject=Van%27s%20App%20Answers&body=' + encodeURIComponent(t) + '" style="display:inline-block;background:#1a1a1a;color:#fff;padding:0.85rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;">Send to Joe with Files 📎</a>';
+            html += '</div>';
+            d.innerHTML = html;
             d.scrollIntoView({behavior:'smooth'});
         });
     </script>
