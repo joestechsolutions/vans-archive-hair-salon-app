@@ -373,9 +373,10 @@
     <!-- Chat Helper -->
     <div class="chat-helper">
         <div class="chat-popup" id="chat-popup">
-            <h4>Need help?</h4>
-            <p>If you're confused about any questions or want to chat about what you're looking for, Joe's AI assistant is here!</p>
-            <a href="mailto:joe@joestechsolutions.com?subject=Question about Van's App" class="chat-option">Ask Joe's AI ✨</a>
+            <h4>Need help with the form?</h4>
+            <p>Chat with Joe's AI assistant directly — it knows everything about your app project!</p>
+            <button onclick="openChat()" class="chat-option" style="border:none;width:100%;margin-top:0.75rem;">💬 Chat on Telegram</button>
+            <button onclick="openEmailChat()" class="chat-option" style="background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);margin-top:0.5rem;">✉️ Or email Joe</button>
         </div>
         <button class="chat-btn" onclick="toggleChat()">
             <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
@@ -404,6 +405,14 @@
         }
         function toggleChat() {
             document.getElementById('chat-popup').classList.toggle('show');
+        }
+        function openChat() {
+            // Open Telegram DM to Joe's AI assistant
+            // Replace @YourBotUsername with Joe's actual Telegram bot
+            window.open('https://t.me/JoeBlasTechBot?text=Hi%20Joe!%20I%27m%20Van%20and%20I%27m%20filling%20out%20the%20app%20planning%20form.%20I%20have%20a%20question...', '_blank');
+        }
+        function openEmailChat() {
+            window.location.href = 'mailto:joe@joestechsolutions.com?subject=Van%27s%20Chat';
         }
 
         document.getElementById('vans-form').addEventListener('submit', function(e) {
