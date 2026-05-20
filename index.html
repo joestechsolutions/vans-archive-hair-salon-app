@@ -3,610 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Van's App — Interactive Session</title>
+    <title>Hi Van! Let's Build Your App ✨</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0a0e1a;
-            color: #e8eaed;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fdfcfc;
+            color: #1a1a1a;
             line-height: 1.6;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-
-        header {
-            text-align: center;
-            padding: 2rem 0 3rem;
-            border-bottom: 1px solid #1e2a3a;
-            margin-bottom: 3rem;
-        }
-        h1 { font-size: 1.75rem; color: #fff; margin-bottom: 0.5rem; }
-        .subtitle { color: #7f8c9b; font-size: 0.9rem; }
-
-        .section {
-            background: #0f1520;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #1e2a3a;
-        }
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-        .section-number {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #4d96ff;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        h2 { font-size: 1.1rem; color: #fff; }
-
-        label {
-            display: block;
-            color: #b8c5d6;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            background: #1a2332;
-            border: 1px solid #2a3544;
-            border-radius: 8px;
-            color: #e8eaed;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            transition: border-color 0.2s;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #4d96ff;
-        }
-        textarea { min-height: 100px; resize: vertical; }
-
-        .radio-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-        .radio-option {
-            background: #1a2332;
-            border: 1px solid #2a3544;
-            border-radius: 8px;
-            padding: 0.75rem 1.25rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .radio-option:hover { border-color: #4d96ff; }
+        .container { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem; }
+        header { text-align: center; padding: 3rem 0 2rem; }
+        .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
+        h1 { font-size: 1.75rem; color: #1a1a1a; margin-bottom: 0.75rem; font-weight: 600; }
+        .subtitle { color: #666; font-size: 1rem; max-width: 450px; margin: 0 auto; }
+        .intro { background: #f5f2ed; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; text-align: center; }
+        .intro p { color: #4a4a4a; font-size: 0.95rem; }
+        .intro strong { color: #1a1a1a; }
+        .section { background: #fff; border-radius: 12px; padding: 1.75rem; margin-bottom: 1.25rem; border: 1px solid #e8e5e0; }
+        .section-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .section-number { width: 26px; height: 26px; border-radius: 50%; background: #c9b8a3; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
+        h2 { font-size: 1rem; color: #1a1a1a; font-weight: 600; line-height: 1.4; }
+        .hint { background: #f9f7f4; border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.85rem; color: #777; margin-bottom: 0.75rem; border-left: 3px solid #c9b8a3; }
+        label { display: block; color: #4a4a4a; margin-bottom: 0.4rem; font-size: 0.9rem; }
+        input, textarea { width: 100%; padding: 0.75rem; background: #fafaf8; border: 1px solid #e0ddd8; border-radius: 8px; color: #1a1a1a; font-size: 0.95rem; margin-bottom: 0.75rem; }
+        input:focus, textarea:focus { outline: none; border-color: #c9b8a3; }
+        textarea { min-height: 90px; resize: vertical; }
+        .radio-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .radio-option { background: #fafaf8; border: 1px solid #e0ddd8; border-radius: 10px; padding: 0.85rem 1rem; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 150px; }
+        .radio-option:hover { border-color: #c9b8a3; background: #f5f2ed; }
         .radio-option input { display: none; }
-        .radio-option:has(input:checked) {
-            background: #1e3a5f;
-            border-color: #4d96ff;
-        }
-
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            background: #1a2332;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .checkbox-option input { width: auto; margin: 0; }
-        .checkbox-option span { font-size: 0.9rem; }
-
-        button.primary {
-            background: #4d96ff;
-            color: #fff;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 1rem;
-        }
-        button.primary:hover { background: #3a7acc; }
-
-        .response {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: #141824;
-            border-radius: 8px;
-            border-left: 3px solid #6bcb77;
-            display: none;
-        }
-        .response.show { display: block; }
-        .response h3 { color: #6bcb77; margin-bottom: 1rem; }
-        .response p { color: #b8c5d6; margin-bottom: 0.75rem; }
-        .response ul { margin-left: 1.5rem; color: #b8c5d6; }
-        .response li { margin-bottom: 0.5rem; }
-
-        .highlight-box {
-            background: #1a1f2e;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #b8c5d6;
-        }
-        .highlight-box.warning { border-left: 3px solid #ffd93d; }
-        .highlight-box.danger { border-left: 3px solid #ff6b6b; }
-        .highlight-box.success { border-left: 3px solid #6bcb77; }
-
-        .status-indicator {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.75rem;
-            margin-left: 0.5rem;
-        }
-        .status-draft { background: #2a3544; color: #b8c5d6; }
-        .status-working { background: #3d351f; color: #ffd93d; }
-        .status-decided { background: #1f3d2a; color: #6bcb77; }
-
-        .progress-bar {
-            height: 4px;
-            background: #1e2a3a;
-            border-radius: 2px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: #4d96ff;
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: #4a5568;
-            font-size: 0.8rem;
-        }
-
-        .rec-card {
-            background: #141824;
-            border-radius: 8px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            border: 1px solid #1e2a3a;
-        }
-        .rec-card h4 { color: #fff; margin-bottom: 0.5rem; }
-
-        @media (max-width: 600px) {
-            .container { padding: 1rem; }
-            .section { padding: 1.25rem; }
-            .radio-group { flex-direction: column; }
-            .checkbox-group { grid-template-columns: 1fr; }
-        }
+        .radio-option:has(input:checked) { background: #f5f2ed; border-color: #c9b8a3; }
+        .radio-option strong { color: #1a1a1a; display: block; font-size: 0.9rem; }
+        .radio-option span { font-size: 0.8rem; color: #888; }
+        .checkbox-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        .checkbox-option { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; background: #fafaf8; border-radius: 8px; cursor: pointer; border: 1px solid #e0ddd8; }
+        .checkbox-option:hover { background: #f5f2ed; border-color: #c9b8a3; }
+        .checkbox-option input { width: auto; margin: 0; accent-color: #c9b8a3; }
+        .checkbox-option span { font-size: 0.85rem; color: #4a4a4a; }
+        button.primary { background: #1a1a1a; color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1.5rem; }
+        button.primary:hover { opacity: 0.9; }
+        footer { text-align: center; padding: 3rem 0 2rem; color: #999; font-size: 0.85rem; }
+        footer a { color: #c9b8a3; }
+        @media (max-width: 500px) { .radio-group { flex-direction: column; } }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Van's App — Interactive Session</h1>
-            <p class="subtitle">Answer the questions below. I'll adjust the direction as we go.</p>
-            <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+            <div class="emoji">✨</div>
+            <h1>Hey Van! Let's talk about your app.</h1>
+            <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier.</p>
         </header>
-
+        <div class="intro">
+            <p>No wrong answers here. This is just to help Joe understand what you actually need. <strong>Be honest!</strong></p>
+        </div>
         <form id="session-form">
-
-            <!-- Section 1: Priority Module -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">1</span>
-                    <h2>Which module is most important? <span class="status-indicator status-draft" id="status-1">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    The premortem said: pick ONE. Which would Van use every day if it worked perfectly?
-                </p>
+                <div class="section-header"><span class="section-number">1</span><h2>What's the thing that drives you crazy about your current setup?</h2></div>
+                <div class="hint">Not what sounds fancy — the actual thing that makes you roll your eyes.</div>
+                <textarea name="pain_point" placeholder="e.g., 'I can never find the formula I used for that client 3 months ago'"></textarea>
+            </div>
+            <div class="section">
+                <div class="section-header"><span class="section-number">2</span><h2>If you could fix ONE thing about your workflow, what would it be?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="priority_module" value="formulas">
-                        <strong>Formulas</strong> — track color mixes, ratios, brand-specific recipes
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="priority_module" value="inventory">
-                        <strong>Inventory</strong> — track products, scan barcodes, low-stock alerts
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="priority_module" value="clients">
-                        <strong>Client Info</strong> — name, number, photos, notes
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="priority_module" value="profitability">
-                        <strong>Profitability</strong> — cost per service, margins, break-even
-                    </label>
+                    <label class="radio-option"><input type="radio" name="priority_module" value="formulas"><strong>Formulas</strong><span>Remembering mixes</span></label>
+                    <label class="radio-option"><input type="radio" name="priority_module" value="inventory"><strong>Inventory</strong><span>What I have in stock</span></label>
+                    <label class="radio-option"><input type="radio" name="priority_module" value="clients"><strong>Client Notes</strong><span>Preferences & photos</span></label>
+                    <label class="radio-option"><input type="radio" name="priority_module" value="profitability"><strong>Money</strong><span>Am I profitable?</span></label>
                 </div>
             </div>
-
-            <!-- Section 2: Daily Pain Point -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">2</span>
-                    <h2>What's Van's biggest daily frustration? <span class="status-indicator status-draft" id="status-2">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    Not what she mentioned — what actually slows her down behind the chair?
-                </p>
-                <textarea name="pain_point" placeholder="e.g., 'Forgetting the exact ratio she used three months ago' or 'Running out of product mid-service'"></textarea>
-            </div>
-
-            <!-- Section 3: Data Entry Tolerance -->
-            <div class="section">
-                <div class="section-header">
-                    <span class="section-number">3</span>
-                    <h2>How much data entry will Van actually do? <span class="status-indicator status-draft" id="status-3">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    The premortem flagged this: gloved hands mid-service can't tap. Be honest.
-                </p>
+                <div class="section-header"><span class="section-number">3</span><h2>During a service, how much can you actually use your phone?</h2></div>
+                <div class="hint">Gloved hands, color on the brush — be real!</div>
                 <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="data_entry" value="minimal">
-                        <strong>Minimal</strong> — She'll tap 1-2 things max during a service
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="data_entry" value="some">
-                        <strong>Some</strong> — She's OK tapping 3-5 things if it's quick
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="data_entry" value="batch">
-                        <strong>Batch only</strong> — She'll log everything at end of day, not during
-                    </label>
+                    <label class="radio-option"><input type="radio" name="data_entry" value="minimal"><strong>Almost none</strong><span>1-2 taps max</span></label>
+                    <label class="radio-option"><input type="radio" name="data_entry" value="some"><strong>A little</strong><span>A few quick taps</span></label>
+                    <label class="radio-option"><input type="radio" name="data_entry" value="batch"><strong>After instead</strong><span>I'll do it later</span></label>
                 </div>
             </div>
-
-            <!-- Section 4: Tech Comfort -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">4</span>
-                    <h2>How comfortable is Van with tech? <span class="status-indicator status-draft" id="status-4">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    Affects onboarding complexity and feature design.
-                </p>
+                <div class="section-header"><span class="section-number">4</span><h2>How tech-savvy are you?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="tech_comfort" value="power">
-                        <strong>Power user</strong> — Already uses Gloss daily, comfortable with apps
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="tech_comfort" value="casual">
-                        <strong>Casual</strong> — Uses basic apps, doesn't customize settings
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="tech_comfort" value="reluctant">
-                        <strong>Reluctant</strong> — Only uses apps that are obviously simpler than alternatives
-                    </label>
+                    <label class="radio-option"><input type="radio" name="tech_comfort" value="power"><strong>Pretty good</strong><span>I use apps daily</span></label>
+                    <label class="radio-option"><input type="radio" name="tech_comfort" value="casual"><strong>Average</strong><span>Getting around fine</span></label>
+                    <label class="radio-option"><input type="radio" name="tech_comfort" value="reluctant"><strong>Not really</strong><span>Easier than paper</span></label>
                 </div>
             </div>
-
-            <!-- Section 5: Integration Needs -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">5</span>
-                    <h2>What should this app connect to? <span class="status-indicator status-draft" id="status-5">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    Existing tools, calendars, messaging, etc.
-                </p>
+                <div class="section-header"><span class="section-number">5</span><h2>What else do you wish talked to your app?</h2></div>
                 <div class="checkbox-group">
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="integrations" value="gloss">
-                        <span>Gloss (current app)</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="integrations" value="calendar">
-                        <span>Calendar (booking)</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="integrations" value="text">
-                        <span>Text/SMS reminders</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="integrations" value="photos">
-                        <span>Photo library</span>
-                    </label>
-                    <label class="checkbox-option">
-                        <input type="checkbox" name="integrations" value="none">
-                        <span>Standalone only</span>
-                    </label>
+                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="gloss"><span>Gloss (current)</span></label>
+                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="calendar"><span>My calendar</span></label>
+                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="text"><span>Text reminders</span></label>
+                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="photos"><span>Photo library</span></label>
+                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="none"><span>Nothing, just works</span></label>
                 </div>
             </div>
-
-            <!-- Section 6: Business Model -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">6</span>
-                    <h2>How should this make money? <span class="status-indicator status-draft" id="status-6">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    One friend → free? Or sell to other stylists too?
-                </p>
+                <div class="section-header"><span class="section-number">6</span><h2>What vibe do you want the app to have?</h2></div>
+                <div class="hint">Like the salon — clean and warm, or something different?</div>
                 <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="business_model" value="free_friend">
-                        <strong>Free for Van</strong> — It's a favor, no monetization
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="business_model" value="paid_v1">
-                        <strong>Paid eventually</strong> — But build for Van first
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="business_model" value="saas">
-                        <strong>Full SaaS</strong> — This is a product, not a gift
-                    </label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="warm"><strong>Warm & Cozy</strong><span>Like the salon</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="clean"><strong>Clean & Simple</strong><span>Minimal, easy</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="bold"><strong>Bold & Fun</strong><span>Colorful, expressive</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="dark"><strong>Sleek & Dark</strong><span>Professional, moody</span></label>
                 </div>
+                <label style="margin-top:0.5rem">Any color preferences? (optional)</label>
+                <input type="text" name="colors" placeholder="e.g., sage, blush pink, earth tones...">
             </div>
-
-            <!-- Section 7: Aesthetics -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">7</span>
-                    <h2>What vibe does Van want? <span class="status-indicator status-draft" id="status-7">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    She mentioned the current apps aren't "aesthetically pleasing."
-                </p>
-                <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="vibe" value="clean">
-                        <strong>Clean + minimal</strong> — Lots of white space, simple
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="vibe" value="warm">
-                        <strong>Warm + cozy</strong> — Soft colors, friendly
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="vibe" value="bold">
-                        <strong>Bold + colorful</strong> — High energy, expressive
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="vibe" value="dark">
-                        <strong>Dark + moody</strong> — Cool, professional
-                    </label>
-                </div>
-                <label style="margin-top: 1rem;">Any specific colors she likes?</label>
-                <input type="text" name="colors" placeholder="e.g., 'blush pink', 'sage and gold', 'Barbie pink like Gloss'">
+                <div class="section-header"><span class="section-number">7</span><h2>What's the ONE thing you've always wanted in an app like this?</h2></div>
+                <div class="hint">Dream big — no friction, money was no object...</div>
+                <textarea name="big_want" placeholder="e.g., 'Show me the formula I used last time they were here'"></textarea>
             </div>
-
-            <!-- Section 8: Timeline -->
             <div class="section">
-                <div class="section-header">
-                    <span class="section-number">8</span>
-                    <h2>When does Van need this? <span class="status-indicator status-draft" id="status-8">Draft</span></h2>
-                </div>
-                <p style="color: #7f8c9b; margin-bottom: 1rem; font-size: 0.9rem;">
-                    Realistic timeline — not aspirational.
-                </p>
+                <div class="section-header"><span class="section-number">8</span><h2>When do you need this by?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option">
-                        <input type="radio" name="timeline" value="asap">
-                        <strong>ASAP</strong> — She's actively frustrated now
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="timeline" value="months">
-                        <strong>Months</strong> — Nice to have, no urgency
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="timeline" value="exploring">
-                        <strong>Just exploring</strong> — No concrete deadline
-                    </label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="asap"><strong>Yesterday</strong><span>Frustrated now</span></label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="months"><strong>Months</strong><span>Nice to have</span></label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="exploring"><strong>Just curious</strong><span>Exploring options</span></label>
                 </div>
             </div>
-
-            <button type="submit" class="primary">Get My Recommendations</button>
+            <button type="submit" class="primary">Get My Recommendations ✨</button>
         </form>
-
         <div id="final-response"></div>
-
-        <footer>
-            Premortem-driven app planning for Van's Hair Stylist App
-        </footer>
+        <footer>Made for Van by Joe &bull; <a href="https://github.com/joestechsolutions/vans-app">View on GitHub</a></footer>
     </div>
-
     <script>
-        const recommendations = {
-            formulas: {
-                risk: 'low',
-                summary: 'Lowest risk, highest impact. No barcode database needed — just text/saved templates.',
-                features: 'Search past formulas, quick-add new ones, brand presets, ml/gr/oz toggle.',
-                premortem: 'Offline-first is critical. If she\'s mid-color and needs the formula, the app MUST work without signal.'
-            },
-            inventory: {
-                risk: 'high',
-                summary: 'High complexity. Barcode databases are a known failure from the premortem.',
-                features: 'Manual product entry, stock counts, low-stock alerts, reorder tracking.',
-                premortem: 'Test on Van\'s actual products first. If >40% need manual entry, cut this for v1.',
-                alternative: 'Could track by "purchased" date + estimated usage rather than real-time scanning.'
-            },
-            clients: {
-                risk: 'low',
-                summary: 'Simple to build, but photo storage costs add up.',
-                features: 'Client list, quick notes, photo storage (with size limits), search.',
-                premortem: 'Photos multiply fast. Consider limiting to last 10 per client or offering cloud storage upgrade.'
-            },
-            profitability: {
-                risk: 'high',
-                summary: 'High false-confidence risk. Consumables tracking is hard; fixed costs are invisible.',
-                features: 'Product cost per service (auto-calculated from formulas), service price tracker.',
-                premortem: 'Acknowledge limitations: "This doesn\'t include booth rent." Don\'t show false precision.',
-                alt: 'Track revenue vs. cost-of-products only, label it clearly.'
-            }
-        };
-
-        const dataEntryAdvice = {
-            minimal: {
-                summary: 'Design for this. Maximum 2 taps during service.',
-                detail: 'Make the happy path ONE tap. Show the formula she needs the moment she opens the app.',
-                premortem: 'Consumables tracking during service will fail. Move it to end-of-day batch entry.'
-            },
-            some: {
-                summary: 'OK for basic logging. 3-5 taps works if buttons are large.',
-                detail: 'Design for gloved fingers: big tap targets (48px+), swipe instead of multi-tap.'
-            },
-            batch: {
-                summary: 'Simplest technical path. No real-time data needed.',
-                detail: 'Everything syncs when WiFi is available. This also fixes the premortem problem.',
-                risk: 'Data will be approximate. Van will guesstimate. Build for that.'
-            }
-        };
-
-        document.getElementById('session-form').addEventListener('change', function(e) {
-            const section = e.target.closest('.section');
-            if (!section) return;
-
-            const sectionIndex = Array.from(document.querySelectorAll('.section')).indexOf(section) + 1;
-            const statusEl = document.getElementById('status-' + sectionIndex);
-            if (statusEl) {
-                statusEl.className = 'status-indicator status-decided';
-                statusEl.textContent = 'Answered';
-            }
-
-            // Update progress
-            const answeredSections = document.querySelectorAll('.status-indicator.status-decided').length;
-            const totalSections = 8;
-            document.getElementById('progress').style.width = ((answeredSections / totalSections) * 100) + '%';
-        });
-
         document.getElementById('session-form').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            const formData = new FormData(e.target);
-            const answers = {};
-            for (let [key, value] of formData.entries()) {
-                answers[key] = value;
-            }
-
-            // Get checkbox values
-            const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(c => c.value);
-            answers.integrations = checkboxes;
-
-            // Generate recommendations
-            let html = '<div class="section" style="margin-top: 2rem; border-color: #6bcb77;"><h2 style="color: #6bcb77;">Final Recommendations for Van\'s App</h2>';
-
-            // 1. Module
-            if (answers.priority_module) {
-                const rec = recommendations[answers.priority_module];
-                html += '<div class="rec-card">';
-                html += '  <h4>1. Start with: ' + answers.priority_module.charAt(0).toUpperCase() + answers.priority_module.slice(1) + '</h4>';
-                html += '  <p>' + rec.summary + '</p>';
-                html += '  <p><strong>Key features:</strong> ' + rec.features + '</p>';
-                html += '  <p><strong>Premortem check:</strong> ' + rec.premortem + '</p>';
-                if (rec.alternative) html += '  <p><strong>Alternative:</strong> ' + rec.alternative + '</p>';
-                if (rec.alt) html += '  <p><strong>Better approach:</strong> ' + rec.alt + '</p>';
-                html += '</div>';
-            }
-
-            // 2. Data entry approach
-            if (answers.data_entry) {
-                const advice = dataEntryAdvice[answers.data_entry];
-                html += '<div class="rec-card">';
-                html += '  <h4>2. Data Entry: ' + answers.data_entry + '</h4>';
-                html += '  <p>' + advice.summary + '</p>';
-                if (advice.detail) html += '  <p>' + advice.detail + '</p>';
-                if (advice.premortem) html += '  <p><strong>Premortem check:</strong> ' + advice.premortem + '</p>';
-                if (advice.risk) html += '  <p><strong>Risk:</strong> ' + advice.risk + '</p>';
-                html += '</div>';
-            }
-
-            // 3. Tech comfort
-            if (answers.tech_comfort) {
-                html += '<div class="rec-card">';
-                html += '  <h4>3. Tech comfort: ' + answers.tech_comfort + '</h4>';
-                if (answers.tech_comfort === 'reluctant') {
-                    html += '  <p>This must be obviously better than pen and paper. If there\'s any friction, she\'ll go back.</p>';
-                    html += '  <p>Consider importing from Gloss automatically — don\'t make her re-enter everything.</p>';
-                } else if (answers.tech_comfort === 'casual') {
-                    html += '  <p>Keep it simple: one main action per screen, no settings to configure, defaults that "just work."</p>';
-                } else {
-                    html += '  <p>Van can handle onboarding flow, settings, and customization. Can teach gestures and shortcuts.</p>';
-                }
-                html += '</div>';
-            }
-
-            // 4. Business model
-            if (answers.business_model) {
-                html += '<div class="rec-card">';
-                html += '  <h4>4. Business model: ' + answers.business_model + '</h4>';
-                if (answers.business_model === 'free_friend') {
-                    html += '  <p>Scope pressure = harder to say no to "just one more thing."</p>';
-                    html += '  <p>Define scope in writing before building. List explicitly what\'s OUT of v1.</p>';
-                } else if (answers.business_model === 'saas') {
-                    html += '  <p>Requires validated PMF first. Before going SaaS:</p>';
-                    html += '  <ul><li>Van must use it daily for 3+ months</li><li>2-3 other stylists must want it</li><li>Clear differentiator from GlossGenius</li></ul>';
-                    html += '<p style="margin-top:0.5rem">The premortem showed: "built for Van" won\'t scale without validating with others.</p>';
-                } else {
-                    html += '  <p>Good approach — build with real data from Van, figure out monetization later.</p>';
-                }
-                html += '</div>';
-            }
-
-            // 5. Timeline
-            if (answers.timeline) {
-                html += '<div class="rec-card">';
-                html += '  <h4>5. Timeline: ' + answers.timeline + '</h4>';
-                if (answers.timeline === 'asap') {
-                    html += '  <p><strong>Critical:</strong> Ship a prototype in 2 weeks, not a full app in 2 months.</p>';
-                    html += '  <p><strong>Week 1:</strong> Mock up ONE screen. Show Van. Get yes/no.</p>';
-                    html += '  <p><strong>Week 2:</strong> Build just that screen. Test with real data.</p>';
-                    html += '  <p><strong>Week 4:</strong> Evaluate. Is she using it? Keep going. Not? Pivot.</p>';
-                } else if (answers.timeline === 'exploring') {
-                    html += '  <p><strong>No pressure — perfect.</strong> Use this time to talk to 3-5 stylists besides Van before writing code. Each "I don\'t do it that way" is valuable data.</p>';
-                } else {
-                    html += '  <p>Time to do this right: prototype first, validate, then build.</p>';
-                }
-                html += '</div>';
-            }
-
-            // Missing answers
-            const missing = [];
-            if (!answers.priority_module) missing.push('priority module');
-            if (!answers.data_entry) missing.push('data entry tolerance');
-            if (!answers.tech_comfort) missing.push('tech comfort');
-            if (!answers.timeline) missing.push('timeline');
-
-            if (missing.length > 0) {
-                html += '<div class="highlight-box warning">';
-                html += '  <strong>Fill in more to get complete recommendations:</strong> ' + missing.join(', ');
-                html += '</div>';
-            }
-
-            html += '</div>';
-
-            // Next steps
-            html += '<div class="rec-card" style="border-color: #4d96ff;">';
-            html += '  <h4>Next Step</h4>';
-            if (answers.timeline === 'asap') {
-                html += '  <p><strong>Tomorrow:</strong> Open <a href="http://127.0.0.1:4000" style="color:#4d96ff">Open Design</a> and mock up ONE screen — the main formula lookup or the client she sees most. Show Van before end of week.</p>';
-            } else {
-                html += '  <p><strong>Next conversation with Van:</strong> Ask her the daily frustration question in person. Get specific: "Walk me through the last time you went to find a formula you used before." What happened? What did she do?</p>';
-                html += '  <p style="margin-top: 0.75rem;"><strong>Then:</strong> Open <a href="http://127.0.0.1:4000" style="color:#4d96ff">Open Design</a> and sketch one screen based on what she says. Bring it back to show her.</p>';
-            }
-            html += '</div>';
-
-            document.getElementById('final-response').innerHTML = html;
-            document.getElementById('final-response').scrollIntoView({ behavior: 'smooth' });
+            var fd = new FormData(e.target), ans = {};
+            for (var p of fd) ans[p[0]] = p[1];
+            var cbs = Array.from(document.querySelectorAll('input:checked')).map(function(x) { return x.value; });
+            var mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
+            var vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
+            var ent = {minimal:'Almost none (1-2 taps)',some:'A few quick taps',batch:'After services'};
+            var t = 'Hi Joe! Here are my answers:\n\n';
+            if (ans.priority_module) t += '1. Fix ONE thing: ' + mods[ans.priority_module] + '\n';
+            if (ans.data_entry) t += '2. Phone usage: ' + ent[ans.data_entry] + '\n';
+            if (ans.vibe) t += '3. App vibe: ' + vibs[ans.vibe] + '\n';
+            if (ans.colors) t += '4. Colors: ' + ans.colors + '\n';
+            if (ans.pain_point) t += '\nBiggest frustration: ' + ans.pain_point + '\n';
+            if (ans.big_want) t += 'Dream feature: ' + ans.big_want + '\n';
+            var d = document.getElementById('final-response');
+            d.innerHTML = '<div style="background:#f5f2ed;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;"><h3 style="font-size:1.25rem;margin-bottom:0.5rem;">Got it, Van!</h3><p style="color:#666;margin-bottom:1.5rem;">Send this to Joe and we\'ll take it from here.</p><div style="background:#fff;border-radius:10px;padding:1.25rem;text-align:left;margin-bottom:1.5rem;"><p style="font-weight:600;margin-bottom:0.5rem;">Your answers:</p>';
+            if (ans.priority_module) d.innerHTML += '<p style="margin:0.2rem 0;font-size:0.9rem;">• Priority: ' + mods[ans.priority_module] + '</p>';
+            if (ans.vibe) d.innerHTML += '<p style="margin:0.2rem 0;font-size:0.9rem;">• Vibe: ' + vibs[ans.vibe] + '</p>';
+            if (ans.pain_point) d.innerHTML += '<p style="margin:0.5rem 0 0;font-size:0.9rem;font-style:italic;">"' + ans.pain_point + '"</p>';
+            d.innerHTML += '</div><a href="mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(t) + '" style="display:inline-block;background:#1a1a1a;color:#fff;padding:0.85rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;">Email Joe ✉️</a></div>';
+            d.scrollIntoView({behavior:'smooth'});
         });
     </script>
 </body>
