@@ -3,229 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi Van! Let's Build Your App ✨</title>
+    <title>Hey Van! Let's Build Your App ✨ | Joe's Tech Solutions</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #fdfcfc;
-            color: #1a1a1a;
+            background: #0d0d12;
+            color: #fff;
             line-height: 1.6;
+            min-height: 100vh;
         }
-        .container { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem; }
-        header { text-align: center; padding: 3rem 0 2rem; }
-        .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
-        h1 { font-size: 1.75rem; color: #1a1a1a; margin-bottom: 0.75rem; font-weight: 600; }
-        .subtitle { color: #666; font-size: 1rem; max-width: 450px; margin: 0 auto; }
-        .intro { background: #f5f2ed; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; text-align: center; }
-        .intro p { color: #4a4a4a; font-size: 0.95rem; }
-        .intro strong { color: #1a1a1a; }
-        .section { background: #fff; border-radius: 12px; padding: 1.75rem; margin-bottom: 1.25rem; border: 1px solid #e8e5e0; }
-        .section-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .section-number { width: 26px; height: 26px; border-radius: 50%; background: #c9b8a3; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; flex-shrink: 0; }
-        h2 { font-size: 1rem; color: #1a1a1a; font-weight: 600; line-height: 1.4; }
-        .hint { background: #f9f7f4; border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.85rem; color: #777; margin-bottom: 0.75rem; border-left: 3px solid #c9b8a3; }
-        label { display: block; color: #4a4a4a; margin-bottom: 0.4rem; font-size: 0.9rem; }
-        input, textarea { width: 100%; padding: 0.75rem; background: #fafaf8; border: 1px solid #e0ddd8; border-radius: 8px; color: #1a1a1a; font-size: 0.95rem; margin-bottom: 0.75rem; }
-        input:focus, textarea:focus { outline: none; border-color: #c9b8a3; }
-        textarea { min-height: 90px; resize: vertical; }
+        .container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+        header {
+            text-align: center;
+            padding: 3rem 0 2.5rem;
+            background: linear-gradient(180deg, rgba(11,127,115,0.1) 0%, transparent 100%);
+            margin: -2rem -1.5rem 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .emoji { font-size: 3rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        h1 { font-size: 2rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; letter-spacing: -0.02em; }
+        .subtitle { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1.5rem;
+        }
+        .brand-dot { width: 8px; height: 8px; background: #0b7f73; border-radius: 50%; }
+
+        .intro {
+            background: rgba(11,127,115,0.08);
+            border: 1px solid rgba(11,127,115,0.2);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .intro p { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
+        .intro strong { color: #0b7f73; }
+
+        .section {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s;
+        }
+        .section:hover { border-color: rgba(11,127,115,0.3); background: rgba(255,255,255,0.04); }
+        .section-header { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 0.75rem; }
+        .section-number {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: linear-gradient(135deg, #0b7f73, #0a6b62);
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 700; flex-shrink: 0; box-shadow: 0 2px 8px rgba(11,127,115,0.3);
+        }
+        h2 { font-size: 1.05rem; color: #fff; font-weight: 600; line-height: 1.4; }
+
+        .hint {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 1rem;
+            border-left: 3px solid #0b7f73;
+        }
+
+        label { display: block; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; font-size: 0.9rem; }
+        input, textarea, select {
+            width: 100%; padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff; font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+        input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #0b7f73;
+            box-shadow: 0 0 0 3px rgba(11,127,115,0.15);
+            background: rgba(11,127,115,0.08);
+        }
+        textarea { min-height: 100px; resize: vertical; }
+
         .radio-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-        .radio-option { background: #fafaf8; border: 1px solid #e0ddd8; border-radius: 10px; padding: 0.85rem 1rem; cursor: pointer; transition: all 0.2s; flex: 1; min-width: 150px; }
-        .radio-option:hover { border-color: #c9b8a3; background: #f5f2ed; }
+        .radio-option {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1rem 1.15rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            flex: 1;
+            min-width: 140px;
+        }
+        .radio-option:hover { border-color: #0b7f73; background: rgba(11,127,115,0.08); }
         .radio-option input { display: none; }
-        .radio-option:has(input:checked) { background: #f5f2ed; border-color: #c9b8a3; }
-        .radio-option strong { color: #1a1a1a; display: block; font-size: 0.9rem; }
-        .radio-option span { font-size: 0.8rem; color: #888; }
+        .radio-option:has(input:checked) {
+            background: rgba(11,127,115,0.15);
+            border-color: #0b7f73;
+            box-shadow: 0 0 0 2px rgba(11,127,115,0.2);
+        }
+        .radio-option strong { color: #fff; display: block; font-size: 0.9rem; margin-bottom: 0.15rem; }
+        .radio-option span { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
         .checkbox-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-        .checkbox-option { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; background: #fafaf8; border-radius: 8px; cursor: pointer; border: 1px solid #e0ddd8; }
-        .checkbox-option:hover { background: #f5f2ed; border-color: #c9b8a3; }
-        .checkbox-option input { width: auto; margin: 0; accent-color: #c9b8a3; }
-        .checkbox-option span { font-size: 0.85rem; color: #4a4a4a; }
-        input[type="file"] { padding: 0.5rem; }
-        input[type="url"] { margin-bottom: 0.5rem; }
-        .file-hint { font-size: 0.8rem; color: #999; margin-bottom: 0.75rem; }
-        .file-preview { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
-        .file-item { background: #f5f2ed; padding: 0.4rem 0.75rem; border-radius: 6px; font-size: 0.8rem; color: #4a4a4a; }
-        .links-container { margin-bottom: 0.75rem; }
+        .checkbox-option {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .checkbox-option:hover { background: rgba(11,127,115,0.1); border-color: rgba(11,127,115,0.3); }
+        .checkbox-option input { width: auto; margin: 0; accent-color: #0b7f73; }
+        .checkbox-option span { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+
+        button.primary {
+            background: linear-gradient(135deg, #0b7f73, #095c55);
+            color: #fff; border: none;
+            padding: 1.1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.05rem; font-weight: 600;
+            cursor: pointer; width: 100%;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(11,127,115,0.3);
+        }
+        button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(11,127,115,0.4);
+            background: linear-gradient(135deg, #0c897b, #0a6660);
+        }
+        button.primary:active { transform: translateY(0); }
+
+        /* Files section */
+        .files-section {
+            background: linear-gradient(180deg, rgba(11,127,115,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            border-color: rgba(11,127,115,0.15);
+        }
         .link-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
-        .link-row input { flex: 1; margin: 0; }
-        .link-row button { background: #e0ddd8; border: none; padding: 0.5rem 0.75rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-        .link-row button:hover { background: #d0cdc8; }
-        button.primary { background: #1a1a1a; color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1.5rem; }
-        button.primary:hover { opacity: 0.9; }
-        footer { text-align: center; padding: 3rem 0 2rem; color: #999; font-size: 0.85rem; }
-        footer a { color: #c9b8a3; }
-        @media (max-width: 500px) { .radio-group { flex-direction: column; } }
+        .link-row input { flex: 1; margin: 0; font-size: 0.85rem; }
+        .link-row button {
+            background: rgba(255,255,255,0.1); border: none;
+            width: 40px; height: 40px;
+            border-radius: 8px; cursor: pointer;
+            color: #fff; font-size: 1.2rem; line-height: 1;
+            transition: all 0.2s;
+        }
+        .link-row button:hover { background: #0b7f73; }
+        input[type="file"] { background: rgba(255,255,255,0.05); padding: 0.75rem; }
+        .file-hint { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
+        .file-preview { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .file-badge {
+            background: rgba(11,127,115,0.2);
+            color: #0b7f73;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        /* Chat helper button */
+        .chat-helper {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+        .chat-btn {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #0b7f73, #095c55);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(11,127,115,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(11,127,115,0.5); }
+        .chat-btn svg { width: 24px; height: 24px; fill: #fff; }
+        .chat-popup {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            background: #1a1a24;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.25rem;
+            width: 280px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: none;
+        }
+        .chat-popup.show { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } }
+        .chat-popup h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .chat-popup p { color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5; }
+        .chat-option {
+            display: block;
+            background: rgba(11,127,115,0.1);
+            border: 1px solid rgba(11,127,115,0.2);
+            color: #0b7f73;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .chat-option:hover { background: rgba(11,127,115,0.2); }
+
+        /* Results */
+        .success-msg {
+            background: rgba(11,127,115,0.1);
+            border: 1px solid rgba(11,127,113,0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+        }
+        .success-msg.show { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } }
+        .checkmark { font-size: 3rem; margin-bottom: 1rem; }
+        .success-msg h3 { color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .success-msg p { color: rgba(255,255,255,0.6); }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 3rem;
+        }
+        footer a { color: #0b7f73; text-decoration: none; }
+
+        @media (max-width: 500px) {
+            .radio-group { flex-direction: column; }
+            h1 { font-size: 1.6rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
+            <div class="brand-badge"><span class="brand-dot"></span> Joe's Tech Solutions</div>
             <div class="emoji">✨</div>
             <h1>Hey Van! Let's talk about your app.</h1>
-            <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier.</p>
+            <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier behind the chair.</p>
         </header>
+
         <div class="intro">
-            <p>No wrong answers here. This is just to help Joe understand what you actually need. <strong>Be honest!</strong></p>
+            <p>No wrong answers here. This helps Joe understand what you actually need. <strong>Be honest!</strong></p>
         </div>
-        <form id="session-form">
+
+        <!-- Form -->
+        <form id="vans-form">
             <div class="section">
                 <div class="section-header"><span class="section-number">1</span><h2>What's the thing that drives you crazy about your current setup?</h2></div>
                 <div class="hint">Not what sounds fancy — the actual thing that makes you roll your eyes.</div>
                 <textarea name="pain_point" placeholder="e.g., 'I can never find the formula I used for that client 3 months ago'"></textarea>
             </div>
+
             <div class="section">
                 <div class="section-header"><span class="section-number">2</span><h2>If you could fix ONE thing about your workflow, what would it be?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="priority_module" value="formulas"><strong>Formulas</strong><span>Remembering mixes</span></label>
-                    <label class="radio-option"><input type="radio" name="priority_module" value="inventory"><strong>Inventory</strong><span>What I have in stock</span></label>
-                    <label class="radio-option"><input type="radio" name="priority_module" value="clients"><strong>Client Notes</strong><span>Preferences & photos</span></label>
-                    <label class="radio-option"><input type="radio" name="priority_module" value="profitability"><strong>Money</strong><span>Am I profitable?</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="formulas"><strong>Formulas</strong><span>Remembering mixes</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="inventory"><strong>Inventory</strong><span>Stock tracking</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="clients"><strong>Client Notes</strong><span>Preferences & photos</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="profitability"><strong>Money</strong><span>Am I profitable?</span></label>
                 </div>
             </div>
+
             <div class="section">
-                <div class="section-header"><span class="section-number">3</span><h2>During a service, how much can you actually use your phone?</h2></div>
+                <div class="section-header"><span class="section-number">3</span><h2>During a service, how much can you use your phone?</h2></div>
                 <div class="hint">Gloved hands, color on the brush — be real!</div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="data_entry" value="minimal"><strong>Almost none</strong><span>1-2 taps max</span></label>
-                    <label class="radio-option"><input type="radio" name="data_entry" value="some"><strong>A little</strong><span>A few quick taps</span></label>
-                    <label class="radio-option"><input type="radio" name="data_entry" value="batch"><strong>After instead</strong><span>I'll do it later</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="minimal"><strong>Almost none</strong><span>1-2 taps max</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="some"><strong>A little</strong><span>A few quick taps</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="batch"><strong>After instead</strong><span>I add notes later</span></label>
                 </div>
             </div>
+
             <div class="section">
-                <div class="section-header"><span class="section-number">4</span><h2>How tech-savvy are you?</h2></div>
-                <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="tech_comfort" value="power"><strong>Pretty good</strong><span>I use apps daily</span></label>
-                    <label class="radio-option"><input type="radio" name="tech_comfort" value="casual"><strong>Average</strong><span>Getting around fine</span></label>
-                    <label class="radio-option"><input type="radio" name="tech_comfort" value="reluctant"><strong>Not really</strong><span>Easier than paper</span></label>
-                </div>
-            </div>
-            <div class="section">
-                <div class="section-header"><span class="section-number">5</span><h2>What else do you wish talked to your app?</h2></div>
-                <div class="checkbox-group">
-                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="gloss"><span>Gloss (current)</span></label>
-                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="calendar"><span>My calendar</span></label>
-                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="text"><span>Text reminders</span></label>
-                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="photos"><span>Photo library</span></label>
-                    <label class="checkbox-option"><input type="checkbox" name="integrations" value="none"><span>Nothing, just works</span></label>
-                </div>
-            </div>
-            <div class="section">
-                <div class="section-header"><span class="section-number">6</span><h2>What vibe do you want the app to have?</h2></div>
-                <div class="hint">Like the salon — clean and warm, or something different?</div>
+                <div class="section-header"><span class="section-number">4</span><h2>What vibe do you want the app to have?</h2></div>
                 <div class="radio-group">
                     <label class="radio-option"><input type="radio" name="vibe" value="warm"><strong>Warm & Cozy</strong><span>Like the salon</span></label>
                     <label class="radio-option"><input type="radio" name="vibe" value="clean"><strong>Clean & Simple</strong><span>Minimal, easy</span></label>
                     <label class="radio-option"><input type="radio" name="vibe" value="bold"><strong>Bold & Fun</strong><span>Colorful, expressive</span></label>
-                    <label class="radio-option"><input type="radio" name="vibe" value="dark"><strong>Sleek & Dark</strong><span>Professional, moody</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="dark"><strong>Sleek & Dark</strong><span>Professional, cool</span></label>
                 </div>
-                <label style="margin-top:0.5rem">Any color preferences? (optional)</label>
-                <input type="text" name="colors" placeholder="e.g., sage, blush pink, earth tones...">
+                <label style="margin-top:0.75rem;">Any color preferences? (optional)</label>
+                <input type="text" name="colors" placeholder="e.g., sage green, blush pink, earth tones...">
             </div>
+
             <div class="section">
-                <div class="section-header"><span class="section-number">7</span><h2>What's the ONE thing you've always wanted in an app like this?</h2></div>
+                <div class="section-header"><span class="section-number">5</span><h2>What's the ONE thing you've always wanted in an app like this?</h2></div>
                 <div class="hint">Dream big — no friction, money was no object...</div>
-                <textarea name="big_want" placeholder="e.g., 'Show me the formula I used last time they were here'"></textarea>
+                <textarea name="dream_feature" placeholder="e.g., 'Show me the formula I used last time they were here'"></textarea>
             </div>
+
             <div class="section">
-                <div class="section-header"><span class="section-number">8</span><h2>When do you need this by?</h2></div>
+                <div class="section-header"><span class="section-number">6</span><h2>When do you need this by?</h2></div>
                 <div class="radio-group">
                     <label class="radio-option"><input type="radio" name="timeline" value="asap"><strong>Yesterday</strong><span>Frustrated now</span></label>
                     <label class="radio-option"><input type="radio" name="timeline" value="months"><strong>Months</strong><span>Nice to have</span></label>
                     <label class="radio-option"><input type="radio" name="timeline" value="exploring"><strong>Just curious</strong><span>Exploring options</span></label>
                 </div>
             </div>
-            <button type="submit" class="primary">Get My Recommendations ✨</button>
-        </form>
 
-        <!-- Links & Files Section -->
-        <div class="section" style="margin-top:2rem;background:#f9f7f4;">
-            <div class="section-header"><span class="section-number">📎</span><h2>Links, Photos & Documents (optional)</h2></div>
-            <div class="hint">Share screenshots, inspiration, documents — paste links or attach files</div>
+            <!-- Links & Files -->
+            <div class="section files-section">
+                <div class="section-header"><span class="section-number">📎</span><h2>Share links, photos & documents (optional)</h2></div>
+                <div class="hint">Screenshots of what you're using now, inspiration, or anything that helps explain.</div>
 
-            <label>Links you want to share</label>
-            <div id="links-container">
-                <div class="link-row" style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-                    <input type="url" name="link1" placeholder="https://instagram.com/..." style="flex:1;">
-                    <button type="button" onclick="addLinkRow()" style="background:#c9b8a3;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;font-weight:600;">+</button>
+                <label>Links</label>
+                <div id="links-area">
+                    <div class="link-row">
+                        <input type="url" name="link1" placeholder="https://...">
+                        <button type="button" onclick="addLink()">+</button>
+                    </div>
                 </div>
+
+                <label style="margin-top:1rem;">Photos</label>
+                <input type="file" name="photos" accept="image/*" multiple onchange="showFiles(this, 'photo-previews')">
+                <p class="file-hint">Tap to select photos</p>
+                <div class="file-preview" id="photo-previews"></div>
+
+                <label style="margin-top:1rem;">Documents (PDF, Word, Excel)</label>
+                <input type="file" name="docs" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="showFiles(this, 'doc-previews')">
+                <div class="file-preview" id="doc-previews"></div>
             </div>
 
-            <label style="margin-top:1rem;">Photos (screenshots, your salon, current apps)</label>
-            <input type="file" name="photos" accept="image/*" multiple onchange="showFileNames(this, 'photo-names')" style="background:#fff;">
-            <p class="file-hint">Select multiple photos at once</p>
-            <div class="file-preview" id="photo-names" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+            <button type="submit" class="primary">Submit & Send to Joe ✨</button>
+        </form>
 
-            <label style="margin-top:1rem;">Documents (lists, PDFs, spreadsheets)</label>
-            <input type="file" name="docs" accept=".pdf,.doc,.docx,.xls,.xlsx,.txt,.csv" onchange="showFileNames(this, 'doc-names')" style="background:#fff;">
-            <p class="file-hint">PDF, Word, Excel, or text files</p>
-            <div class="file-preview" id="doc-names" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+        <div class="success-msg" id="success-msg">
+            <div class="checkmark">🎉</div>
+            <h3>Got it, Van!</h3>
+            <p>Joe has received your answers and will be in touch soon.</p>
         </div>
 
-        <div id="final-response"></div>
+        <footer>
+            Made with ✨ for Van by <a href="https://www.joestechsolutions.com">Joe's Tech Solutions</a>
+        </footer>
+    </div>
 
-        <footer>Made for Van by Joe &bull; <a href="https://github.com/joestechsolutions/vans-app">View on GitHub</a></footer>
+    <!-- Chat Helper -->
+    <div class="chat-helper">
+        <div class="chat-popup" id="chat-popup">
+            <h4>Need help?</h4>
+            <p>If you're confused about any questions or want to chat about what you're looking for, Joe's AI assistant is here!</p>
+            <a href="mailto:joe@joestechsolutions.com?subject=Question about Van's App" class="chat-option">Ask Joe's AI ✨</a>
+        </div>
+        <button class="chat-btn" onclick="toggleChat()">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+        </button>
     </div>
 
     <script>
         var linkCount = 1;
-        function addLinkRow() {
+        function addLink() {
             linkCount++;
-            var c = document.getElementById('links-container');
-            var d = document.createElement('div');
-            d.style = 'display:flex;gap:0.5rem;margin-bottom:0.5rem;';
-            d.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..." style="flex:1;"><button type="button" onclick="this.parentElement.remove()" style="background:#d0cdc8;border:none;padding:0.5rem 0.75rem;border-radius:6px;cursor:pointer;">×</button>';
-            c.appendChild(d);
+            var area = document.getElementById('links-area');
+            var div = document.createElement('div');
+            div.className = 'link-row';
+            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">×</button>';
+            area.appendChild(div);
         }
-        function showFileNames(input, pid) {
-            var p = document.getElementById(pid);
-            p.innerHTML = '';
+        function showFiles(input, previewId) {
+            var preview = document.getElementById(previewId);
+            preview.innerHTML = '';
             for (var i = 0; i < input.files.length; i++) {
-                var s = document.createElement('span');
-                s.className = 'file-item';
-                s.textContent = input.files[i].name;
-                p.appendChild(s);
+                var span = document.createElement('span');
+                span.className = 'file-badge';
+                span.textContent = input.files[i].name.substring(0, 20);
+                preview.appendChild(span);
             }
         }
+        function toggleChat() {
+            document.getElementById('chat-popup').classList.toggle('show');
+        }
 
-        document.getElementById('session-form').addEventListener('submit', function(e) {
+        document.getElementById('vans-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            var fd = new FormData(e.target), ans = {};
-            for (var p of fd) ans[p[0]] = p[1];
+            var fd = new FormData(e.target);
+            var answers = {};
+            for (var p of fd) answers[p[0]] = p[1];
 
             // Collect links
             var links = [];
             for (var i = 1; i <= linkCount; i++) {
-                if (ans['link' + i]) links.push(ans['link' + i]);
+                if (answers['link' + i]) links.push(answers['link' + i]);
             }
 
+            // Build email body
             var mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
             var vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
-            var ent = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
-            var t = 'Hi Joe! Here are my answers:\n\n';
-            if (ans.priority_module) t += '1. Fix ONE thing: ' + mods[ans.priority_module] + '\n';
-            if (ans.data_entry) t += '2. Phone usage: ' + ent[ans.data_entry] + '\n';
-            if (ans.vibe) t += '3. App vibe: ' + vibs[ans.vibe] + '\n';
-            if (ans.colors) t += '4. Colors: ' + ans.colors + '\n';
-            if (ans.pain_point) t += '\nBiggest frustration: ' + ans.pain_point + '\n';
-            if (ans.big_want) t += 'Dream feature: ' + ans.big_want + '\n';
-            if (links.length) t += '\nLinks shared:\n' + links.join('\n') + '\n';
-            t += '\n(Photos & documents attached to email)';
+            var phone = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
+            var time = {asap:'ASAP (Yesterday!)',months:'Couple months',exploring:'Just exploring'};
 
-            var d = document.getElementById('final-response');
-            var html = '<div style="background:#f5f2ed;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center;">';
-            html += '<h3 style="font-size:1.25rem;margin-bottom:0.5rem;">Got it, Van!</h3>';
-            html += '<p style="color:#666;margin-bottom:1.5rem;">Send this to Joe — your files are attached!</p>';
-            html += '<div style="background:#fff;border-radius:10px;padding:1.25rem;text-align:left;margin-bottom:1.5rem;font-size:0.9rem;">';
-            if (ans.priority_module) html += '<p style="margin:0.2rem 0;">• Priority: ' + mods[ans.priority_module] + '</p>';
-            if (ans.vibe) html += '<p style="margin:0.2rem 0;">• Vibe: ' + vibs[ans.vibe] + '</p>';
-            if (links.length) html += '<p style="margin:0.2rem 0;">• ' + links.length + ' link(s) shared</p>';
-            if (ans.pain_point) html += '<p style="margin:0.5rem 0 0;font-style:italic;">"' + ans.pain_point + '"</p>';
-            html += '</div>';
-            html += '<a href="mailto:joe@joestechsolutions.com?subject=Van%27s%20App%20Answers&body=' + encodeURIComponent(t) + '" style="display:inline-block;background:#1a1a1a;color:#fff;padding:0.85rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;">Send to Joe with Files 📎</a>';
-            html += '</div>';
-            d.innerHTML = html;
-            d.scrollIntoView({behavior:'smooth'});
+            var body = '✨ Van\'s App Answers\n';
+            body += '━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+            if (answers.priority) body += '• Fix ONE thing: ' + mods[answers.priority] + '\n';
+            if (answers.phone_use) body += '• Phone during service: ' + phone[answers.phone_use] + '\n';
+            if (answers.vibe) body += '• App vibe: ' + vibs[answers.vibe] + '\n';
+            if (answers.colors) body += '• Colors: ' + answers.colors + '\n';
+            if (answers.timeline) body += '• Timeline: ' + time[answers.timeline] + '\n';
+            if (answers.pain_point) body += '\n🔴 Biggest frustration:\n' + answers.pain_point + '\n';
+            if (answers.dream_feature) body += '\n💭 Dream feature:\n' + answers.dream_feature + '\n';
+            if (links.length) body += '\n🔗 Links shared:\n' + links.join('\n') + '\n';
+            body += '\n━━━━━━━━━━━━━━━━━━━━━━━━━\n(Photos & documents attached)';
+
+            // Open email with all data and files ready to send
+            var mailto = 'mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(body);
+            window.location.href = mailto;
+
+            // Show success
+            document.getElementById('success-msg').classList.add('show');
+            document.getElementById('success-msg').scrollIntoView({behavior: 'smooth'});
         });
     </script>
 </body>
