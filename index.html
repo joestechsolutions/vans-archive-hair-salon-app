@@ -23,17 +23,25 @@
             margin: -2rem -1.5rem 2.5rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+        .logo-title-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .logo-title-row > div { text-align: left; }
         .salon-logo {
-            width: 100px;
-            height: 100px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 1rem;
-            border: 4px solid #0b7f73;
-            box-shadow: 0 8px 25px rgba(11,127,115,0.4);
+            border: 3px solid #0b7f73;
+            box-shadow: 0 4px 15px rgba(11,127,115,0.4);
+            flex-shrink: 0;
         }
-        h1 { font-size: 2rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; letter-spacing: -0.02em; }
-        .subtitle { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
+        h1 { font-size: 2rem; color: #fff; margin-bottom: 0.4rem; font-weight: 700; letter-spacing: -0.02em; }
+        .subtitle { color: rgba(255,255,255,0.6); font-size: 1.05rem; }
 
         .brand-badge {
             display: inline-flex;
@@ -212,7 +220,72 @@
         }
         footer a { color: #0b7f73; text-decoration: none; }
 
+
+        /* Chat Bubble */
+        .chat-bubble {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #0b7f73, #095c55);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 20px rgba(11,127,115,0.4);
+            z-index: 1000; transition: transform 0.2s;
+        }
+        .chat-bubble:hover { transform: scale(1.1); }
+        .chat-badge {
+            position: absolute; top: 8px; right: 8px;
+            background: #ff6b6b; color: white;
+            width: 18px; height: 18px; border-radius: 50%;
+            font-size: 0.7rem; display: flex; align-items: center; justify-content: center;
+        }
+        .chat-modal {
+            position: fixed; bottom: 5rem; right: 2rem;
+            width: 380px; max-height: 500px;
+            background: #1a1a24;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            display: none; flex-direction: column;
+            z-index: 1001; overflow: hidden;
+        }
+        .chat-modal.show { display: flex; }
+        .chat-container { display: flex; flex-direction: column; height: 100%; }
+        .chat-header {
+            background: linear-gradient(135deg, #0b7f73, #095c55);
+            padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
+        }
+        .chat-header h4 { color: #fff; margin: 0; font-size: 1rem; }
+        .chat-header span { color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+        .chat-close {
+            background: rgba(255,255,255,0.2); border: none; color: #fff;
+            width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; line-height: 1;
+        }
+        .chat-body { flex: 1; overflow-y: auto; padding: 1rem; background: #13131a; }
+        .message {
+            background: rgba(255,255,255,0.05); border-radius: 12px; padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem; font-size: 0.9rem; line-height: 1.4; color: rgba(255,255,255,0.85);
+        }
+        .message.user { background: #0b7f73; color: #fff; margin-left: 2rem; }
+        .message.bot { border: 1px solid rgba(11,127,115,0.25); }
+        .typing { font-style: italic; color: rgba(255,255,255,0.5); font-size: 0.85rem; padding: 0.5rem 0; }
+        .chat-input-area {
+            padding: 1rem; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; gap: 0.75rem;
+        }
+        #chatInput {
+            flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px; padding: 0.75rem 1rem; color: #fff; font-size: 0.9rem;
+            resize: none; min-height: 44px; max-height: 120px; font-family: inherit;
+        }
+        #chatInput:focus { outline: none; border-color: #0b7f73; }
+        .chat-send {
+            background: #0b7f73; border: none; color: #fff;
+            padding: 0 1.25rem; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+        }
+        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
         @media (max-width: 500px) {
+            .logo-title-row { flex-direction: column; text-align: center; }
+            .logo-title-row > div { text-align: center; }
             .radio-group { flex-direction: column; }
             h1 { font-size: 1.6rem; }
         }
@@ -222,9 +295,13 @@
     <div class="container">
         <header>
             <div class="brand-badge"><span class="brand-dot"></span> Joe's Tech Solutions</div>
-            <img src="https://archivehairsalon.com/wp-content/uploads/2024/05/cropped-Archive-192x192.png" class="salon-logo" alt="Van's Salon">
-            <h1>Hey Van! Let's talk about your app.</h1>
-            <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier behind the chair.</p>
+            <div class="logo-title-row">
+                <img src="https://archivehairsalon.com/wp-content/uploads/2024/05/cropped-Archive-192x192.png" class="salon-logo" alt="Archive Salon logo">
+                <div>
+                    <h1>Hey Van! Let's talk about your app.</h1>
+                    <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier behind the chair.</p>
+                </div>
+            </div>
         </header>
 
         <div class="intro">
@@ -316,30 +393,34 @@
             <div class="checkmark">🎉</div>
             <h3>Got it, Van!</h3>
             <p>Joe has received your answers and will be in touch soon.</p>
-        </div>
+
 
         
-        <!-- Inline Chat -->
-        <div class="inline-chat" style="margin-top: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden;">
-            <div class="chat-header" style="background: linear-gradient(135deg, #0b7f73, #095c55); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="toggleChatSection()">
-                <div>
-                    <h4 style="color: #fff; margin: 0; font-size: 1rem;">💬 Chat with Joe's AI</h4>
-                    <span style="color: rgba(255,255,255,0.7); font-size: 0.75rem;">Ask anything about your app</span>
+        <!-- Intercom-style Chat -->
+        <div class="chat-bubble" id="chatBubble" onclick="openChat()">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+            </svg>
+            <span class="chat-badge" id="chatBadge">!</span>
+        </div>
+
+        <div class="chat-modal" id="chatModal">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div>
+                        <h4>Chat with Joe's AI</h4>
+                        <span>Ask anything about your app</span>
+                    </div>
+                    <button class="chat-close" onclick="closeChat()">&times;</button>
                 </div>
-                <span id="chatToggleIcon" style="font-size: 1.2rem;">−</span>
-            </div>
-            <div id="chatSectionBody" style="max-height: 0; overflow: hidden; transition: max-height 0.3s;">
-                <div style="padding: 1rem; max-height: 400px; overflow-y: auto; background: #13131a;" id="chatMessages">
-                    <div class="chat-msg bot" style="background: rgba(11,127,113,0.15); border: 1px solid rgba(11,127,113,0.25); border-radius: 12px; padding: 1rem; margin-bottom: 0.75rem; font-size: 0.9rem; color: rgba(255,255,255,0.85);">
-                        Hi Van! 👋 I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!
+                <div class="chat-body" id="chatBody">
+                    <div class="message bot">
+                        Hi Van! I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!
                     </div>
                 </div>
-                <div style="padding: 1rem; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06);">
-                    <div style="display: flex; gap: 0.75rem;">
-                        <input type="text" id="chatInput" placeholder="Type your question..." style="flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 0.85rem 1rem; color: #fff; font-size: 0.9rem;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}">
-                        <button onclick="sendChatMessage()" style="background: #0b7f73; border: none; color: #fff; padding: 0.75rem 1rem; border-radius: 12px; cursor: pointer; font-weight: 600;">Send</button>
-                    </div>
-                    <div id="chatStatus" style="text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem;"></div>
+                <div class="chat-input-area">
+                    <textarea id="chatInput" placeholder="Type your question..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
+                    <button class="chat-send" onclick="sendMessage()">Send</button>
                 </div>
             </div>
         </div>
@@ -347,28 +428,6 @@
 <footer>
             Made with ✨ for Van by <a href="https://www.joestechsolutions.com">Joe's Tech Solutions</a>
         </footer>
-    </div>
-
-    <!-- Chat Helper -->
-    
-                <button class="chat-close" id="closeChat">×</button>
-            </div>
-            <div class="chat-body">
-                <div class="chat-msg bot">
-                    Hi Van! 👋 I'm Joe's AI assistant. I know all about the app we're building for you. Ask me anything about the form, the app features, or anything else!
-                    <div class="meta">Just type below and send</div>
-                </div>
-                <div id="chatHistory"></div>
-                <div class="chat-sent" id="chatSent">✓ Message sent to Joe!</div>
-            </div>
-            <div class="chat-input-area">
-                <div class="chat-input-row">
-                    <textarea class="chat-input" id="chatInput" placeholder="Type your question..." rows="1"></textarea>
-                    <button class="chat-send" id="sendChat">→</button>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 
     <script>
@@ -391,45 +450,70 @@
                 preview.appendChild(span);
             }
         }
-        // Chat modal functions
-        document.getElementById('openChatBtn').addEventListener('click', function() {
+        // Chat functions
+        function openChat() {
             document.getElementById('chatModal').classList.add('show');
-        });
-        document.getElementById('closeChat').addEventListener('click', function() {
-            document.getElementById('chatModal').classList.remove('show');
-        });
-        document.getElementById('chatModal').addEventListener('click', function(e) {
-            if (e.target === this) this.classList.remove('show');
-        });
-
-        function sendChatMessage() {
-            var input = document.getElementById('chatInput');
-            var msg = input.value.trim();
-            if (!msg) return;
-
-            // Show message in chat
-            var history = document.getElementById('chatHistory');
-            var div = document.createElement('div');
-            div.className = 'chat-msg';
-            div.textContent = msg;
-            history.appendChild(div);
-
-            // Send to Joe via email
-            var body = "Van asked via chat:\n\n" + msg + "\n\n---";
-            window.location.href = 'mailto:joe@joestechsolutions.com?subject=Van%27s%20Chat%20Question&body=' + encodeURIComponent(body);
-
-            // Show sent confirmation
-            document.getElementById('chatSent').classList.add('show');
-            input.value = '';
-            setTimeout(function() { document.getElementById('chatSent').classList.remove('show'); }, 3000);
+            document.getElementById('chatInput').focus();
         }
-
-        document.getElementById('sendChat').addEventListener('click', sendChatMessage);
-        document.getElementById('chatInput').addEventListener('keydown', function(e) {
+        function closeChat() {
+            document.getElementById('chatModal').classList.remove('show');
+        }
+        function handleKeyDown(e) {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                sendChatMessage();
+                sendMessage();
             }
+        }
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const body = document.getElementById('chatBody');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message
+            body.innerHTML += '<div class="message user">' + escapeHtml(message) + '</div>';
+            input.value = '';
+            body.scrollTop = body.scrollHeight;
+
+            // Typing indicator
+            const typing = document.createElement('div');
+            typing.className = 'typing';
+            typing.id = 'typing';
+            typing.textContent = 'AI is typing...';
+            body.appendChild(typing);
+            body.scrollTop = body.scrollHeight;
+
+            // Collect form context
+            const form = document.getElementById('vans-form');
+            const formData = new FormData(form);
+            const formAnswers = {};
+            for (const [key, value] of formData.entries()) formAnswers[key] = value;
+            form.querySelectorAll('input:checked').forEach(function(cb) { formAnswers[cb.name] = cb.value; });
+
+            try {
+                const resp = await fetch('https://vans-chat-worker.joe-184.workers.dev/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, formAnswers: formAnswers })
+                });
+                const data = await resp.json();
+                document.getElementById('typing').remove();
+                const response = data.response || data.error || 'Sorry, something went wrong.';
+                body.innerHTML += '<div class="message bot">' + escapeHtml(response) + '</div>';
+                body.scrollTop = body.scrollHeight;
+            } catch (e) {
+                document.getElementById('typing').remove();
+                body.innerHTML += '<div class="message bot" style="color:#ff6b6b;">Connection error. Try again later.</div>';
+                body.scrollTop = body.scrollHeight;
+            }
+        }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        document.getElementById('chatModal').addEventListener('click', function(e) {
+            if (e.target.id === 'chatModal') closeChat();
         });
 
         document.getElementById('vans-form').addEventListener('submit', function(e) {
