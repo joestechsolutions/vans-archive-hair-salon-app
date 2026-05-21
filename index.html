@@ -329,7 +329,7 @@
             var area = document.getElementById('links-area');
             var div = document.createElement('div');
             div.className = 'link-row';
-            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">&times;</button>';
+            div.innerHTML = `<input type="url" name="link${linkCount}" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">&times;</button>`;
             area.appendChild(div);
         }
         function showFiles(input, previewId) {
@@ -433,7 +433,6 @@
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
-}
         });
     </script>
 </body>
