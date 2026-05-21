@@ -164,7 +164,7 @@
             z-index: 1000; transition: all 0.2s;
         }
         .chat-bubble:hover { transform: scale(1.08); background: var(--accent-hover); }
-        .chat-badge {
+        /*.chat-badge {
             position: absolute; top: 6px; right: 6px;
             background: #e74c3c; color: white;
             width: 16px; height: 16px; border-radius: 50%;
@@ -210,7 +210,7 @@
     <div class="container">
         <header>
             <div class="brand-badge">
-                <span class="brand-dot"><img src="logo.jpg" alt="Joe"></span>
+                <span class="brand-dot"><img src="jts-logo.png" alt="JTS"></span>
                 Joe's Tech Solutions
             </div>
             <div class="logo-title-row">
@@ -300,11 +300,11 @@
             <p>Joe has received your answers and will be in touch soon.</p>
         </div>
         <!-- Chat Bubble -->
-        <div class="chat-bubble" id="chatBubble" onclick="openChat()">
+        <div class="chat-bubble" id="chatBubble" onclick="toggleChat()">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
                 <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
             </svg>
-            <span class="chat-badge">!</span>
+            
         </div>
         <div class="chat-modal" id="chatModal">
             <div class="chat-header">
@@ -312,7 +312,7 @@
                     <h4>Chat with Joe's AI</h4>
                     <span>Ask anything about your app</span>
                 </div>
-                <button class="chat-close" onclick="closeChat()">&amp;times;</button>
+                <button class="chat-close" onclick="closeChat()">&times;</button>
             </div>
             <div class="chat-body" id="chatBody">
                 <div class="message bot">Hi Van! I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!</div>
@@ -333,7 +333,7 @@
             var area = document.getElementById('links-area');
             var div = document.createElement('div');
             div.className = 'link-row';
-            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">&amp;times;</button>';
+            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">&times;</button>';
             area.appendChild(div);
         }
         function showFiles(input, previewId) {
@@ -346,6 +346,7 @@
                 preview.appendChild(span);
             }
         }
+        function toggleChat() { var m = document.getElementById('chatModal'); if (m.classList.contains('show')) { closeChat(); } else { openChat(); } }
         function openChat() {
             document.getElementById('chatModal').classList.add('show');
             document.getElementById('chatInput').focus();
