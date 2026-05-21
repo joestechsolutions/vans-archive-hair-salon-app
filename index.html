@@ -409,33 +409,32 @@
         document.getElementById('chatModal').addEventListener('click', function(e) {
             if (e.target.id === 'chatModal') closeChat();
         });
-        document.getElementById('vans-form').addEventListener('submit', function(e) {
+
+        document.getElementById('vans-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            var fd = new FormData(e.target);
-            var answers = {};
-            for (var p of fd) answers[p[0]] = p[1];
-            var links = [];
-            for (var i = 1; i <= linkCount; i++) {
-                if (answers['link' + i]) links.push(answers['link' + i]);
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            try {
+                const resp = await fetch('https://vans-chat-worker.joe-184.workers.dev/submit-form', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    document.getElementById('success-msg').classList.add('show');
+                    document.getElementById('success-msg').scrollIntoView({behavior: 'smooth'});
+                    form.reset();
+                } else {
+                    alert('Something went wrong. Please try again or email joe@joestechsolutions.com directly.');
+                }
+            } catch (err) {
+                alert('Network error. Please check your connection or email joe@joestechsolutions.com directly.');
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             }
-            var mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
-            var vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
-            var phone = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
-            var time = {asap:'ASAP (Yesterday!)',months:'Couple months',exploring:'Just exploring'};
-            var body = 'Van\'s App Answers\n';
-            body += '---\n\n';
-            if (answers.priority) body += 'Fix ONE thing: ' + mods[answers.priority] + '\n';
-            if (answers.phone_use) body += 'Phone use: ' + phone[answers.phone_use] + '\n';
-            if (answers.vibe) body += 'Vibe: ' + vibs[answers.vibe] + '\n';
-            if (answers.colors) body += 'Colors: ' + answers.colors + '\n';
-            if (answers.timeline) body += 'Timeline: ' + time[answers.timeline] + '\n';
-            if (answers.pain_point) body += '\nBiggest frustration:\n' + answers.pain_point + '\n';
-            if (answers.dream_feature) body += '\nDream feature:\n' + answers.dream_feature + '\n';
-            if (links.length) body += '\nLinks:\n' + links.join('\n') + '\n';
-            window.location.href = 'mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(body);
-            document.getElementById('success-msg').classList.add('show');
-            document.getElementById('success-msg').scrollIntoView({behavior: 'smooth'});
-        });
-    </script>
-</body>
-</html>
+>>>>>>> f0fb95a (Add server-side form submission with file attachments)

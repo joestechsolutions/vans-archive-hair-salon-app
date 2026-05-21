@@ -1,7 +1,8 @@
 name = "vans-chat-worker"
-main = "src/index.ts"
+main = "src/index.js"
 compatibility_date = "2025-05-20"
 compatibility_flags = ["nodejs_compat"]
 
-[[ai]]
+[ai]
 binding = "AI"
+
