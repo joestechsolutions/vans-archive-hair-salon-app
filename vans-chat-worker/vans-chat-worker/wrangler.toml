@@ -1,0 +1,15 @@
+name = "vans-chat-worker"
+main = "src/index.ts"
+compatibility_date = "2025-05-20"
+compatibility_flags = ["nodejs_compat"]
+
+# Cloudflare AI binding (Anthropic Claude)
+[[vars]]
+AI = { binding = "AI" }
+
+# Optional: set Anthropic API key as secret
+# ANTHROPIC_API_KEY = "sk-ant-..." (set with wrangler secret put ANTHROPIC_API_KEY)
+
+[migrations]
+tag = "v1"
+new_classes = []
