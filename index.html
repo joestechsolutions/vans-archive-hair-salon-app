@@ -3,371 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hey Van! Let's Build Your App ✨ | Joe's Tech Solutions</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <title>Hey Van! Let's Build Your App ✦ | Joe's Tech Solutions</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
     <style>
+        :root {
+            --bg: #faf8f5;
+            --card: #ffffff;
+            --border: #e8e2d8;
+            --border-hover: #b8a89a;
+            --accent: #0b7f73;
+            --accent-hover: #0a6b62;
+            --accent-light: rgba(11,127,115,0.08);
+            --accent-glow: rgba(11,127,115,0.2);
+            --text: #1a1a1a;
+            --text-secondary: #7a7266;
+            --text-muted: #a89e92;
+            --cream: #f5f0eb;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --radius: 12px;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0d0d12;
-            color: #fff;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
         }
-        .container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-
-        header {
-            text-align: center;
-            padding: 3rem 0 2.5rem;
-            background: linear-gradient(180deg, rgba(11,127,115,0.1) 0%, transparent 100%);
-            margin: -2rem -1.5rem 2.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        .container { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+        header { padding: 2.5rem 0 1.5rem; text-align: center; }
+        .brand-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: var(--cream); border-radius: 50px;
+            padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+            font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 1.5rem;
         }
+        .brand-dot { width: 20px; height: 20px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+        .brand-dot img { width: 100%; height: 100%; object-fit: cover; }
         .logo-title-row {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: flex; align-items: center; gap: 1.25rem;
+            justify-content: center; flex-wrap: wrap;
         }
         .logo-title-row > div { text-align: left; }
         .salon-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0b7f73;
-            box-shadow: 0 4px 15px rgba(11,127,115,0.4);
-            flex-shrink: 0;
+            width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 4px 15px var(--accent-glow); flex-shrink: 0;
         }
-        h1 { font-size: 2rem; color: #fff; margin-bottom: 0.4rem; font-weight: 700; letter-spacing: -0.02em; }
-        .subtitle { color: rgba(255,255,255,0.6); font-size: 1.05rem; }
-
-        .brand-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50px;
-            padding: 0.4rem 0.9rem;
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 1.5rem;
-        }
-        .brand-dot { width: 8px; height: 8px; background: #0b7f73; border-radius: 50%; }
-
+        h1 { font-size: 1.8rem; color: var(--text); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.3rem; }
+        .subtitle { color: var(--text-secondary); font-size: 1rem; }
         .intro {
-            background: rgba(11,127,115,0.08);
-            border: 1px solid rgba(11,127,115,0.2);
-            border-radius: 16px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            background: var(--cream); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem; text-align: center;
         }
-        .intro p { color: rgba(255,255,255,0.8); font-size: 0.95rem; }
-        .intro strong { color: #0b7f73; }
-
+        .intro p { color: var(--text-secondary); font-size: 0.9rem; }
+        .intro strong { color: var(--accent); }
         .section {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 1.75rem;
-            margin-bottom: 1.25rem;
-            transition: all 0.3s;
-        }
-        .section:hover { border-color: rgba(11,127,115,0.3); background: rgba(255,255,255,0.04); }
-        .section-header { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 0.75rem; }
-        .section-number {
-            width: 28px; height: 28px; border-radius: 8px;
-            background: linear-gradient(135deg, #0b7f73, #0a6b62);
-            color: #fff; display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 700; flex-shrink: 0; box-shadow: 0 2px 8px rgba(11,127,115,0.3);
-        }
-        h2 { font-size: 1.05rem; color: #fff; font-weight: 600; line-height: 1.4; }
-
-        .hint {
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.5rem;
             margin-bottom: 1rem;
-            border-left: 3px solid #0b7f73;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
-
-        label { display: block; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem; font-size: 0.9rem; }
-        input, textarea, select {
-            width: 100%; padding: 0.85rem 1rem;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            color: #fff; font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            transition: all 0.2s;
+        .section:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-color: var(--border-hover); }
+        .section-header { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.4rem; }
+        .section-number {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--accent); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; font-weight: 600; flex-shrink: 0;
         }
-        input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #0b7f73;
-            box-shadow: 0 0 0 3px rgba(11,127,115,0.15);
-            background: rgba(11,127,115,0.08);
-        }
-        textarea { min-height: 100px; resize: vertical; }
-
-        .radio-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+        h2 { font-size: 1rem; color: var(--text); font-weight: 600; line-height: 1.4; padding-top: 0.15rem; }
+        .hint { font-size: 0.8rem; color: var(--text-muted); margin: 0.3rem 0 1rem 2.3rem; }
+        .radio-group { display: flex; gap: 0.65rem; flex-wrap: wrap; }
         .radio-option {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 1rem 1.15rem;
-            cursor: pointer;
-            transition: all 0.25s;
-            flex: 1;
-            min-width: 140px;
+            position: relative;
+            background: var(--cream); border: 1.5px solid var(--border);
+            border-radius: 10px; padding: 0.85rem 1rem 0.85rem 2.5rem;
+            cursor: pointer; transition: all 0.2s;
+            flex: 1; min-width: 150px;
         }
-        .radio-option:hover { border-color: #0b7f73; background: rgba(11,127,115,0.08); }
-        .radio-option input { display: none; }
-        .radio-option:has(input:checked) {
-            background: rgba(11,127,115,0.15);
-            border-color: #0b7f73;
-            box-shadow: 0 0 0 2px rgba(11,127,115,0.2);
-        }
-        .radio-option strong { color: #fff; display: block; font-size: 0.9rem; margin-bottom: 0.15rem; }
-        .radio-option span { font-size: 0.8rem; color: rgba(255,255,255,0.5); }
-
-        .checkbox-group { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
-        .checkbox-option {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            cursor: pointer;
+        .radio-option:hover { border-color: var(--accent); background: var(--accent-light); }
+        .radio-option input { position: absolute; opacity: 0; pointer-events: none; }
+        .radio-option .check {
+            position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
+            width: 18px; height: 18px; border-radius: 50%;
+            border: 2px solid var(--border-hover);
+            display: flex; align-items: center; justify-content: center;
             transition: all 0.2s;
         }
-        .checkbox-option:hover { background: rgba(11,127,115,0.1); border-color: rgba(11,127,115,0.3); }
-        .checkbox-option input { width: auto; margin: 0; accent-color: #0b7f73; }
-        .checkbox-option span { font-size: 0.85rem; color: rgba(255,255,255,0.8); }
-
-        button.primary {
-            background: linear-gradient(135deg, #0b7f73, #095c55);
-            color: #fff; border: none;
-            padding: 1.1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.05rem; font-weight: 600;
-            cursor: pointer; width: 100%;
-            margin-top: 1.5rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(11,127,115,0.3);
+        .radio-option .check::after {
+            content: '';
+            width: 8px; height: 8px; border-radius: 50%;
+            background: transparent; transition: all 0.2s;
         }
-        button.primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(11,127,115,0.4);
-            background: linear-gradient(135deg, #0c897b, #0a6660);
+        .radio-option:has(input:checked) {
+            background: var(--accent-light); border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
-        button.primary:active { transform: translateY(0); }
-
-        /* Files section */
-        .files-section {
-            background: linear-gradient(180deg, rgba(11,127,115,0.05) 0%, rgba(255,255,255,0.02) 100%);
-            border-color: rgba(11,127,115,0.15);
+        .radio-option:has(input:checked) .check { border-color: var(--accent); }
+        .radio-option:has(input:checked) .check::after { background: var(--accent); }
+        .radio-option strong { color: var(--text); display: block; font-size: 0.85rem; margin-bottom: 0.1rem; }
+        .radio-option span { font-size: 0.75rem; color: var(--text-muted); }
+        label { display: block; color: var(--text-secondary); margin-bottom: 0.4rem; font-size: 0.85rem; }
+        input, textarea {
+            width: 100%; padding: 0.75rem 1rem;
+            background: var(--cream); border: 1.5px solid var(--border);
+            border-radius: 10px; color: var(--text); font-size: 0.9rem;
+            margin-bottom: 0.5rem; transition: all 0.2s; font-family: var(--font);
         }
-        .link-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        input::placeholder, textarea::placeholder { color: var(--text-muted); }
+        input:focus, textarea:focus {
+            outline: none; border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow); background: #fff;
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        .color-field { margin-top: 0.75rem; }
+        .link-row { display: flex; gap: 0.4rem; margin-bottom: 0.4rem; }
         .link-row input { flex: 1; margin: 0; font-size: 0.85rem; }
         .link-row button {
-            background: rgba(255,255,255,0.1); border: none;
-            width: 40px; height: 40px;
-            border-radius: 8px; cursor: pointer;
-            color: #fff; font-size: 1.2rem; line-height: 1;
-            transition: all 0.2s;
+            background: var(--cream); border: 1.5px solid var(--border);
+            width: 40px; height: 40px; border-radius: 8px; cursor: pointer;
+            color: var(--text-secondary); font-size: 1.1rem; line-height: 1; transition: all 0.2s;
         }
-        .link-row button:hover { background: #0b7f73; }
-        input[type="file"] { background: rgba(255,255,255,0.05); padding: 0.75rem; }
-        .file-hint { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
-        .file-preview { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .file-badge {
-            background: rgba(11,127,115,0.2);
-            color: #0b7f73;
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
+        .link-row button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+        input[type="file"] { background: var(--cream); padding: 0.65rem; cursor: pointer; }
+        .file-hint { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .file-preview { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .file-badge { background: var(--accent-light); color: var(--accent); padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem; }
+        button.primary {
+            background: var(--accent); color: #fff; border: none;
+            padding: 0.9rem 2rem; border-radius: 10px;
+            font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%;
+            margin-top: 1rem; transition: all 0.2s;
+            box-shadow: 0 2px 10px var(--accent-glow);
         }
-
-        /* Results */
+        button.primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 15px var(--accent-glow); }
         .success-msg {
-            background: rgba(11,127,115,0.1);
-            border: 1px solid rgba(11,127,113,0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-            display: none;
+            background: var(--cream); border: 1px solid var(--accent);
+            border-radius: var(--radius); padding: 2rem; margin-top: 2rem;
+            text-align: center; display: none;
         }
-        .success-msg.show { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } }
-        .checkmark { font-size: 3rem; margin-bottom: 1rem; }
-        .success-msg h3 { color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .success-msg p { color: rgba(255,255,255,0.6); }
-
+        .success-msg.show { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } }
+        .checkmark { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .success-msg h3 { color: var(--text); font-size: 1.15rem; margin-bottom: 0.3rem; }
+        .success-msg p { color: var(--text-secondary); font-size: 0.85rem; }
         footer {
-            text-align: center;
-            padding: 3rem 0 2rem;
-            color: rgba(255,255,255,0.3);
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 3rem;
+            text-align: center; padding: 3rem 0 1.5rem;
+            color: var(--text-muted); font-size: 0.75rem;
+            border-top: 1px solid var(--border); margin-top: 3rem;
         }
-        footer a { color: #0b7f73; text-decoration: none; }
-
-
-        /* Chat Bubble */
+        footer a { color: var(--accent); text-decoration: none; }
         .chat-bubble {
-            position: fixed; bottom: 2rem; right: 2rem;
-            width: 60px; height: 60px;
-            background: linear-gradient(135deg, #0b7f73, #095c55);
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            width: 54px; height: 54px; background: var(--accent);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 4px 20px rgba(11,127,115,0.4);
-            z-index: 1000; transition: transform 0.2s;
+            cursor: pointer; box-shadow: 0 4px 20px var(--accent-glow);
+            z-index: 1000; transition: all 0.2s;
         }
-        .chat-bubble:hover { transform: scale(1.1); }
+        .chat-bubble:hover { transform: scale(1.08); background: var(--accent-hover); }
         .chat-badge {
-            position: absolute; top: 8px; right: 8px;
-            background: #ff6b6b; color: white;
-            width: 18px; height: 18px; border-radius: 50%;
-            font-size: 0.7rem; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 6px; right: 6px;
+            background: #e74c3c; color: white;
+            width: 16px; height: 16px; border-radius: 50%;
+            font-size: 0.6rem; display: flex; align-items: center; justify-content: center;
         }
         .chat-modal {
-            position: fixed; bottom: 5rem; right: 2rem;
-            width: 380px; max-height: 500px;
-            background: #1a1a24;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-            display: none; flex-direction: column;
-            z-index: 1001; overflow: hidden;
+            position: fixed; bottom: 5rem; right: 1.5rem;
+            width: 360px; max-height: 480px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            display: none; flex-direction: column; z-index: 1001; overflow: hidden;
         }
         .chat-modal.show { display: flex; }
-        .chat-container { display: flex; flex-direction: column; height: 100%; }
-        .chat-header {
-            background: linear-gradient(135deg, #0b7f73, #095c55);
-            padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
-        }
-        .chat-header h4 { color: #fff; margin: 0; font-size: 1rem; }
-        .chat-header span { color: rgba(255,255,255,0.7); font-size: 0.75rem; }
-        .chat-close {
-            background: rgba(255,255,255,0.2); border: none; color: #fff;
-            width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; line-height: 1;
-        }
-        .chat-body { flex: 1; overflow-y: auto; padding: 1rem; background: #13131a; }
-        .message {
-            background: rgba(255,255,255,0.05); border-radius: 12px; padding: 0.75rem 1rem;
-            margin-bottom: 0.75rem; font-size: 0.9rem; line-height: 1.4; color: rgba(255,255,255,0.85);
-        }
-        .message.user { background: #0b7f73; color: #fff; margin-left: 2rem; }
-        .message.bot { border: 1px solid rgba(11,127,115,0.25); }
-        .typing { font-style: italic; color: rgba(255,255,255,0.5); font-size: 0.85rem; padding: 0.5rem 0; }
-        .chat-input-area {
-            padding: 1rem; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.05);
-            display: flex; gap: 0.75rem;
-        }
+        .chat-modal .chat-header { background: var(--accent); padding: 0.85rem 1.1rem; display: flex; align-items: center; justify-content: space-between; }
+        .chat-modal .chat-header h4 { color: #fff; margin: 0; font-size: 0.9rem; font-weight: 600; }
+        .chat-modal .chat-header span { color: rgba(255,255,255,0.7); font-size: 0.7rem; }
+        .chat-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+        .chat-body { flex: 1; overflow-y: auto; padding: 0.85rem; background: var(--bg); display: flex; flex-direction: column; gap: 0.5rem; }
+        .chat-body .message { border-radius: 10px; padding: 0.6rem 0.85rem; font-size: 0.85rem; line-height: 1.4; max-width: 85%; }
+        .chat-body .message.bot { background: var(--cream); color: var(--text); align-self: flex-start; border: 1px solid var(--border); }
+        .chat-body .message.user { background: var(--accent); color: #fff; align-self: flex-end; }
+        .chat-body .typing { font-style: italic; color: var(--text-muted); font-size: 0.8rem; padding: 0.4rem 0; align-self: flex-start; }
+        .chat-input-area { padding: 0.75rem; background: var(--card); border-top: 1px solid var(--border); display: flex; gap: 0.5rem; }
         #chatInput {
-            flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px; padding: 0.75rem 1rem; color: #fff; font-size: 0.9rem;
-            resize: none; min-height: 44px; max-height: 120px; font-family: inherit;
+            flex: 1; background: var(--cream); border: 1.5px solid var(--border);
+            border-radius: 8px; padding: 0.6rem 0.85rem; color: var(--text); font-size: 0.85rem;
+            resize: none; min-height: 38px; max-height: 100px; font-family: inherit; margin: 0;
         }
-        #chatInput:focus { outline: none; border-color: #0b7f73; }
-        .chat-send {
-            background: #0b7f73; border: none; color: #fff;
-            padding: 0 1.25rem; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 0.9rem;
-        }
-        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
+        #chatInput:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); background: #fff; }
+        .chat-send { background: var(--accent); border: none; color: #fff; padding: 0 1rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+        .chat-send:hover { background: var(--accent-hover); }
         @media (max-width: 500px) {
             .logo-title-row { flex-direction: column; text-align: center; }
             .logo-title-row > div { text-align: center; }
             .radio-group { flex-direction: column; }
-            h1 { font-size: 1.6rem; }
+            h1 { font-size: 1.4rem; }
+            .container { padding: 1.5rem 1rem 4rem; }
+            .chat-modal { width: calc(100vw - 2rem); right: 1rem; bottom: 4.5rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="brand-badge"><span class="brand-dot"></span> Joe's Tech Solutions</div>
+            <div class="brand-badge">
+                <span class="brand-dot"><img src="logo.jpg" alt="Joe"></span>
+                Joe's Tech Solutions
+            </div>
             <div class="logo-title-row">
-                <img src="https://archivehairsalon.com/wp-content/uploads/2024/05/cropped-Archive-192x192.png" class="salon-logo" alt="Archive Salon logo">
+                <img src="logo.jpg" class="salon-logo" alt="Joe's Tech Solutions">
                 <div>
                     <h1>Hey Van! Let's talk about your app.</h1>
-                    <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier behind the chair.</p>
+                    <p class="subtitle">Answer a few questions and I'll get a clear picture of what you need.</p>
                 </div>
             </div>
         </header>
-
         <div class="intro">
-            <p>No wrong answers here. This helps Joe understand what you actually need. <strong>Be honest!</strong></p>
+            <p>No wrong answers — this helps me understand what you actually need. <strong>Just be honest!</strong></p>
         </div>
-
-        <!-- Form -->
         <form id="vans-form">
             <div class="section">
-                <div class="section-header"><span class="section-number">1</span><h2>What's the thing that drives you crazy about your current setup?</h2></div>
-                <div class="hint">Not what sounds fancy — the actual thing that makes you roll your eyes.</div>
-                <textarea name="pain_point" placeholder="e.g., 'I can never find the formula I used for that client 3 months ago'"></textarea>
+                <div class="section-header"><span class="section-number">1</span><h2>What drives you crazy about your current setup?</h2></div>
+                <div class="hint">Not what sounds fancy — the real thing that makes you roll your eyes.</div>
+                <textarea name="pain_point" placeholder='e.g., "I can never find the formula I used for that client 3 months ago"'></textarea>
             </div>
-
             <div class="section">
-                <div class="section-header"><span class="section-number">2</span><h2>If you could fix ONE thing about your workflow, what would it be?</h2></div>
+                <div class="section-header"><span class="section-number">2</span><h2>If you could fix ONE thing, what would it be?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="priority" value="formulas"><strong>Formulas</strong><span>Remembering mixes</span></label>
-                    <label class="radio-option"><input type="radio" name="priority" value="inventory"><strong>Inventory</strong><span>Stock tracking</span></label>
-                    <label class="radio-option"><input type="radio" name="priority" value="clients"><strong>Client Notes</strong><span>Preferences & photos</span></label>
-                    <label class="radio-option"><input type="radio" name="priority" value="profitability"><strong>Money</strong><span>Am I profitable?</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="formulas"><span class="check"></span><strong>Formulas</strong><span>Remembering mixes &amp; colors</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="inventory"><span class="check"></span><strong>Inventory</strong><span>Stock &amp; supply tracking</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="clients"><span class="check"></span><strong>Client Info</strong><span>Notes, photos, preferences</span></label>
+                    <label class="radio-option"><input type="radio" name="priority" value="profitability"><span class="check"></span><strong>Money</strong><span>Profit per service</span></label>
                 </div>
             </div>
-
             <div class="section">
                 <div class="section-header"><span class="section-number">3</span><h2>During a service, how much can you use your phone?</h2></div>
                 <div class="hint">Gloved hands, color on the brush — be real!</div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="phone_use" value="minimal"><strong>Almost none</strong><span>1-2 taps max</span></label>
-                    <label class="radio-option"><input type="radio" name="phone_use" value="some"><strong>A little</strong><span>A few quick taps</span></label>
-                    <label class="radio-option"><input type="radio" name="phone_use" value="batch"><strong>After instead</strong><span>I add notes later</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="minimal"><span class="check"></span><strong>Almost none</strong><span>1-2 taps max, hands are messy</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="some"><span class="check"></span><strong>A few quick taps</strong><span>Enough to glance at a note</span></label>
+                    <label class="radio-option"><input type="radio" name="phone_use" value="batch"><span class="check"></span><strong>After the service</strong><span>Add notes when I'm done</span></label>
                 </div>
             </div>
-
             <div class="section">
-                <div class="section-header"><span class="section-number">4</span><h2>What vibe do you want the app to have?</h2></div>
+                <div class="section-header"><span class="section-number">4</span><h2>What vibe should the app have?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="vibe" value="warm"><strong>Warm & Cozy</strong><span>Like the salon</span></label>
-                    <label class="radio-option"><input type="radio" name="vibe" value="clean"><strong>Clean & Simple</strong><span>Minimal, easy</span></label>
-                    <label class="radio-option"><input type="radio" name="vibe" value="bold"><strong>Bold & Fun</strong><span>Colorful, expressive</span></label>
-                    <label class="radio-option"><input type="radio" name="vibe" value="dark"><strong>Sleek & Dark</strong><span>Professional, cool</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="warm"><span class="check"></span><strong>Warm &amp; Cozy</strong><span>Like the salon</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="clean"><span class="check"></span><strong>Clean &amp; Simple</strong><span>Minimal, no clutter</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="bold"><span class="check"></span><strong>Bold &amp; Fun</strong><span>Colorful, expressive</span></label>
+                    <label class="radio-option"><input type="radio" name="vibe" value="dark"><span class="check"></span><strong>Sleek &amp; Dark</strong><span>Professional edge</span></label>
                 </div>
-                <label style="margin-top:0.75rem;">Any color preferences? (optional)</label>
-                <input type="text" name="colors" placeholder="e.g., sage green, blush pink, earth tones...">
+                <div class="color-field">
+                    <label>Any color preferences? (optional)</label>
+                    <input type="text" name="colors" placeholder="e.g., sage green, blush pink, earth tones...">
+                </div>
             </div>
-
             <div class="section">
                 <div class="section-header"><span class="section-number">5</span><h2>What's the ONE thing you've always wanted in an app like this?</h2></div>
-                <div class="hint">Dream big — no friction, money was no object...</div>
-                <textarea name="dream_feature" placeholder="e.g., 'Show me the formula I used last time they were here'"></textarea>
+                <div class="hint">Dream big — no budget, no limits.</div>
+                <textarea name="dream_feature" placeholder='e.g., "Show me the formula I used last time they were here in one tap"'></textarea>
             </div>
-
             <div class="section">
                 <div class="section-header"><span class="section-number">6</span><h2>When do you need this by?</h2></div>
                 <div class="radio-group">
-                    <label class="radio-option"><input type="radio" name="timeline" value="asap"><strong>Yesterday</strong><span>Frustrated now</span></label>
-                    <label class="radio-option"><input type="radio" name="timeline" value="months"><strong>Months</strong><span>Nice to have</span></label>
-                    <label class="radio-option"><input type="radio" name="timeline" value="exploring"><strong>Just curious</strong><span>Exploring options</span></label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="asap"><span class="check"></span><strong>Yesterday</strong><span>Current setup is frustrating</span></label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="months"><span class="check"></span><strong>Within a few months</strong><span>No rush, but want it</span></label>
+                    <label class="radio-option"><input type="radio" name="timeline" value="exploring"><span class="check"></span><strong>Just exploring</strong><span>Seeing what's possible</span></label>
                 </div>
             </div>
-
-            <!-- Links & Files -->
-            <div class="section files-section">
-                <div class="section-header"><span class="section-number">📎</span><h2>Share links, photos & documents (optional)</h2></div>
+            <div class="section" style="background: var(--cream);">
+                <div class="section-header"><span class="section-number" style="background: #b8a89a;">+</span><h2>Share links, photos &amp; documents (optional)</h2></div>
                 <div class="hint">Screenshots of what you're using now, inspiration, or anything that helps explain.</div>
-
                 <label>Links</label>
                 <div id="links-area">
                     <div class="link-row">
@@ -375,61 +284,48 @@
                         <button type="button" onclick="addLink()">+</button>
                     </div>
                 </div>
-
-                <label style="margin-top:1rem;">Photos</label>
+                <label style="margin-top:0.75rem;">Photos</label>
                 <input type="file" name="photos" accept="image/*" multiple onchange="showFiles(this, 'photo-previews')">
                 <p class="file-hint">Tap to select photos</p>
                 <div class="file-preview" id="photo-previews"></div>
-
-                <label style="margin-top:1rem;">Documents (PDF, Word, Excel)</label>
+                <label style="margin-top:0.75rem;">Documents (PDF, Word, Excel)</label>
                 <input type="file" name="docs" accept=".pdf,.doc,.docx,.xls,.xlsx" onchange="showFiles(this, 'doc-previews')">
                 <div class="file-preview" id="doc-previews"></div>
             </div>
-
-            <button type="submit" class="primary">Submit & Send to Joe ✨</button>
+            <button type="submit" class="primary">Submit &amp; Send to Joe ✦</button>
         </form>
-
         <div class="success-msg" id="success-msg">
-            <div class="checkmark">🎉</div>
+            <div class="checkmark">✦</div>
             <h3>Got it, Van!</h3>
             <p>Joe has received your answers and will be in touch soon.</p>
-
-
-        
-        <!-- Intercom-style Chat -->
+        </div>
+        <!-- Chat Bubble -->
         <div class="chat-bubble" id="chatBubble" onclick="openChat()">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="white">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="white">
                 <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
             </svg>
-            <span class="chat-badge" id="chatBadge">!</span>
+            <span class="chat-badge">!</span>
         </div>
-
         <div class="chat-modal" id="chatModal">
-            <div class="chat-container">
-                <div class="chat-header">
-                    <div>
-                        <h4>Chat with Joe's AI</h4>
-                        <span>Ask anything about your app</span>
-                    </div>
-                    <button class="chat-close" onclick="closeChat()">&times;</button>
+            <div class="chat-header">
+                <div>
+                    <h4>Chat with Joe's AI</h4>
+                    <span>Ask anything about your app</span>
                 </div>
-                <div class="chat-body" id="chatBody">
-                    <div class="message bot">
-                        Hi Van! I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!
-                    </div>
-                </div>
-                <div class="chat-input-area">
-                    <textarea id="chatInput" placeholder="Type your question..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
-                    <button class="chat-send" onclick="sendMessage()">Send</button>
-                </div>
+                <button class="chat-close" onclick="closeChat()">&amp;times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message bot">Hi Van! I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!</div>
+            </div>
+            <div class="chat-input-area">
+                <textarea id="chatInput" placeholder="Type your question..." rows="1" onkeydown="handleKeyDown(event)"></textarea>
+                <button class="chat-send" onclick="sendMessage()">Send</button>
             </div>
         </div>
-
-<footer>
-            Made with ✨ for Van by <a href="https://www.joestechsolutions.com">Joe's Tech Solutions</a>
+        <footer>
+            Made with ✦ for Van by <a href="https://www.joestechsolutions.com">Joe's Tech Solutions</a>
         </footer>
     </div>
-
     <script>
         var linkCount = 1;
         function addLink() {
@@ -437,7 +333,7 @@
             var area = document.getElementById('links-area');
             var div = document.createElement('div');
             div.className = 'link-row';
-            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">×</button>';
+            div.innerHTML = '<input type="url" name="link' + linkCount + '" placeholder="https://..."><button type="button" onclick="this.parentElement.remove()">&amp;times;</button>';
             area.appendChild(div);
         }
         function showFiles(input, previewId) {
@@ -450,7 +346,6 @@
                 preview.appendChild(span);
             }
         }
-        // Chat functions
         function openChat() {
             document.getElementById('chatModal').classList.add('show');
             document.getElementById('chatInput').focus();
@@ -465,92 +360,77 @@
             }
         }
         async function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const body = document.getElementById('chatBody');
-            const message = input.value.trim();
+            var input = document.getElementById('chatInput');
+            var body = document.getElementById('chatBody');
+            var message = input.value.trim();
             if (!message) return;
-
-            // Add user message
-            body.innerHTML += '<div class="message user">' + escapeHtml(message) + '</div>';
+            var msgDiv = document.createElement('div');
+            msgDiv.className = 'message user';
+            msgDiv.textContent = message;
+            body.appendChild(msgDiv);
             input.value = '';
             body.scrollTop = body.scrollHeight;
-
-            // Typing indicator
-            const typing = document.createElement('div');
+            var typing = document.createElement('div');
             typing.className = 'typing';
-            typing.id = 'typing';
             typing.textContent = 'AI is typing...';
             body.appendChild(typing);
             body.scrollTop = body.scrollHeight;
-
-            // Collect form context
-            const form = document.getElementById('vans-form');
-            const formData = new FormData(form);
-            const formAnswers = {};
-            for (const [key, value] of formData.entries()) formAnswers[key] = value;
+            var form = document.getElementById('vans-form');
+            var formData = new FormData(form);
+            var formAnswers = {};
+            for (var pair of formData.entries()) formAnswers[pair[0]] = pair[1];
             form.querySelectorAll('input:checked').forEach(function(cb) { formAnswers[cb.name] = cb.value; });
-
             try {
-                const resp = await fetch('https://vans-chat-worker.joe-184.workers.dev/chat', {
+                var resp = await fetch('https://vans-chat-worker.joe-184.workers.dev/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: message, formAnswers: formAnswers })
                 });
-                const data = await resp.json();
+                var data = await resp.json();
                 document.getElementById('typing').remove();
-                const response = data.response || data.error || 'Sorry, something went wrong.';
-                body.innerHTML += '<div class="message bot">' + escapeHtml(response) + '</div>';
+                var response = data.response || data.error || 'Sorry, something went wrong.';
+                var botDiv = document.createElement('div');
+                botDiv.className = 'message bot';
+                botDiv.textContent = response;
+                body.appendChild(botDiv);
                 body.scrollTop = body.scrollHeight;
             } catch (e) {
                 document.getElementById('typing').remove();
-                body.innerHTML += '<div class="message bot" style="color:#ff6b6b;">Connection error. Try again later.</div>';
+                var errDiv = document.createElement('div');
+                errDiv.className = 'message bot';
+                errDiv.style.color = '#c0392b';
+                errDiv.textContent = 'Connection error. Try again later.';
+                body.appendChild(errDiv);
                 body.scrollTop = body.scrollHeight;
             }
-        }
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
         }
         document.getElementById('chatModal').addEventListener('click', function(e) {
             if (e.target.id === 'chatModal') closeChat();
         });
-
         document.getElementById('vans-form').addEventListener('submit', function(e) {
             e.preventDefault();
             var fd = new FormData(e.target);
             var answers = {};
             for (var p of fd) answers[p[0]] = p[1];
-
-            // Collect links
             var links = [];
             for (var i = 1; i <= linkCount; i++) {
                 if (answers['link' + i]) links.push(answers['link' + i]);
             }
-
-            // Build email body
             var mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
             var vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
             var phone = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
             var time = {asap:'ASAP (Yesterday!)',months:'Couple months',exploring:'Just exploring'};
-
-            var body = '✨ Van\'s App Answers\n';
-            body += '━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
-            if (answers.priority) body += '• Fix ONE thing: ' + mods[answers.priority] + '\n';
-            if (answers.phone_use) body += '• Phone during service: ' + phone[answers.phone_use] + '\n';
-            if (answers.vibe) body += '• App vibe: ' + vibs[answers.vibe] + '\n';
-            if (answers.colors) body += '• Colors: ' + answers.colors + '\n';
-            if (answers.timeline) body += '• Timeline: ' + time[answers.timeline] + '\n';
-            if (answers.pain_point) body += '\n🔴 Biggest frustration:\n' + answers.pain_point + '\n';
-            if (answers.dream_feature) body += '\n💭 Dream feature:\n' + answers.dream_feature + '\n';
-            if (links.length) body += '\n🔗 Links shared:\n' + links.join('\n') + '\n';
-            body += '\n━━━━━━━━━━━━━━━━━━━━━━━━━\n(Photos & documents attached)';
-
-            // Open email with all data and files ready to send
-            var mailto = 'mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(body);
-            window.location.href = mailto;
-
-            // Show success
+            var body = 'Van\'s App Answers\n';
+            body += '---\n\n';
+            if (answers.priority) body += 'Fix ONE thing: ' + mods[answers.priority] + '\n';
+            if (answers.phone_use) body += 'Phone use: ' + phone[answers.phone_use] + '\n';
+            if (answers.vibe) body += 'Vibe: ' + vibs[answers.vibe] + '\n';
+            if (answers.colors) body += 'Colors: ' + answers.colors + '\n';
+            if (answers.timeline) body += 'Timeline: ' + time[answers.timeline] + '\n';
+            if (answers.pain_point) body += '\nBiggest frustration:\n' + answers.pain_point + '\n';
+            if (answers.dream_feature) body += '\nDream feature:\n' + answers.dream_feature + '\n';
+            if (links.length) body += '\nLinks:\n' + links.join('\n') + '\n';
+            window.location.href = 'mailto:joe@joestechsolutions.com?subject=Van\'s App Answers&body=' + encodeURIComponent(body);
             document.getElementById('success-msg').classList.add('show');
             document.getElementById('success-msg').scrollIntoView({behavior: 'smooth'});
         });
