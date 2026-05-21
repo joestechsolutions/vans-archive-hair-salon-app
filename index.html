@@ -373,6 +373,7 @@
             body.scrollTop = body.scrollHeight;
             var typing = document.createElement('div');
             typing.className = 'typing';
+            typing.id = 'typing';
             typing.textContent = 'AI is typing...';
             body.appendChild(typing);
             body.scrollTop = body.scrollHeight;
@@ -388,7 +389,7 @@
                     body: JSON.stringify({ message: message, formAnswers: formAnswers })
                 });
                 var data = await resp.json();
-                document.getElementById('typing').remove();
+                var t = document.getElementById('typing'); if (t) t.remove();
                 var response = data.response || data.error || 'Sorry, something went wrong.';
                 var botDiv = document.createElement('div');
                 botDiv.className = 'message bot';
@@ -396,7 +397,7 @@
                 body.appendChild(botDiv);
                 body.scrollTop = body.scrollHeight;
             } catch (e) {
-                document.getElementById('typing').remove();
+                var t = document.getElementById('typing'); if (t) t.remove();
                 var errDiv = document.createElement('div');
                 errDiv.className = 'message bot';
                 errDiv.style.color = '#c0392b';
