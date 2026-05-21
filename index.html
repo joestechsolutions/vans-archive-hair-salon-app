@@ -23,8 +23,15 @@
             margin: -2rem -1.5rem 2.5rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .emoji { font-size: 3rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .salon-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid #0b7f73;
+            box-shadow: 0 8px 25px rgba(11,127,115,0.4);
+        }
         h1 { font-size: 2rem; color: #fff; margin-bottom: 0.75rem; font-weight: 700; letter-spacing: -0.02em; }
         .subtitle { color: rgba(255,255,255,0.6); font-size: 1.05rem; max-width: 480px; margin: 0 auto; }
 
@@ -179,119 +186,6 @@
             font-size: 0.8rem;
         }
 
-        /* Chat helper button */
-        .chat-helper {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 100;
-        }
-        .chat-btn {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #0b7f73, #095c55);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(11,127,115,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        .chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(11,127,115,0.5); }
-        .chat-btn svg { width: 24px; height: 24px; fill: #fff; }
-        .chat-popup {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            background: #1a1a24;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 1.25rem;
-            width: 280px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            display: none;
-        }
-        .chat-popup.show { display: block; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } }
-        .chat-popup h4 { color: #fff; font-size: 0.95rem; margin-bottom: 0.5rem; }
-        .chat-popup p { color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.5; }
-        .chat-option {
-            display: block;
-            background: rgba(11,127,115,0.1);
-            border: 1px solid rgba(11,127,115,0.2);
-            color: #0b7f73;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            margin-top: 0.75rem;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 0.85rem;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .chat-option:hover { background: rgba(11,127,115,0.2); }
-
-                .chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(11,127,113,0.5); }
-        .chat-btn svg { width: 24px; height: 24px; fill: #fff; }
-
-        /* Inline Chat Modal */
-        .chat-modal {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 1000; padding: 1rem;
-        }
-        .chat-modal.show { display: flex; }
-        .chat-box {
-            background: #1a1a24; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; width: 100%; max-width: 420px; max-height: 85vh;
-            display: flex; flex-direction: column; overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        }
-        .chat-header {
-            background: linear-gradient(135deg, #0b7f73, #095c55); padding: 1.25rem 1.5rem;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-        .chat-header h4 { color: #fff; font-size: 1rem; margin: 0; }
-        .chat-header span { display: block; font-size: 0.75rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
-        .chat-close {
-            background: rgba(255,255,255,0.2); border: none; color: #fff;
-            width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.2rem;
-        }
-        .chat-body {
-            flex: 1; padding: 1.25rem; overflow-y: auto; background: #13131a;
-        }
-        .chat-msg {
-            background: rgba(255,255,255,0.05); border-radius: 14px; padding: 1rem;
-            margin-bottom: 0.75rem; font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.5;
-        }
-        .chat-msg.bot {
-            background: rgba(11,127,113,0.12); border: 1px solid rgba(11,127,113,0.25);
-        }
-        .chat-msg .meta { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 0.4rem; }
-        .chat-input-area {
-            padding: 1rem 1.25rem; background: rgba(255,255,255,0.03);
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .chat-input-row { display: flex; gap: 0.75rem; }
-        .chat-input {
-            flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 12px; padding: 0.85rem 1rem; color: #fff; font-size: 0.9rem;
-            resize: none; max-height: 100px;
-        }
-        .chat-input:focus { outline: none; border-color: #0b7f73; }
-        .chat-send {
-            background: #0b7f73; border: none; color: #fff; width: 44px; height: 44px;
-            border-radius: 12px; cursor: pointer; font-size: 1.1rem;
-        }
-        .chat-sent { display: none; margin-top: 0.75rem; }
-        .chat-sent.show {
-            display: block; background: rgba(11,127,113,0.2); color: #0b7f73;
-            padding: 0.75rem; border-radius: 10px; font-size: 0.85rem; text-align: center;
-        }
-
         /* Results */
         .success-msg {
             background: rgba(11,127,115,0.1);
@@ -328,7 +222,7 @@
     <div class="container">
         <header>
             <div class="brand-badge"><span class="brand-dot"></span> Joe's Tech Solutions</div>
-            <div class="emoji">✨</div>
+            <img src="https://archivehairsalon.com/wp-content/uploads/2024/05/cropped-Archive-192x192.png" class="salon-logo" alt="Van's Salon">
             <h1>Hey Van! Let's talk about your app.</h1>
             <p class="subtitle">Answer a few questions and we'll figure out exactly what would make your life easier behind the chair.</p>
         </header>
@@ -424,25 +318,39 @@
             <p>Joe has received your answers and will be in touch soon.</p>
         </div>
 
-        <footer>
+        
+        <!-- Inline Chat -->
+        <div class="inline-chat" style="margin-top: 2rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden;">
+            <div class="chat-header" style="background: linear-gradient(135deg, #0b7f73, #095c55); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer;" onclick="toggleChatSection()">
+                <div>
+                    <h4 style="color: #fff; margin: 0; font-size: 1rem;">💬 Chat with Joe's AI</h4>
+                    <span style="color: rgba(255,255,255,0.7); font-size: 0.75rem;">Ask anything about your app</span>
+                </div>
+                <span id="chatToggleIcon" style="font-size: 1.2rem;">−</span>
+            </div>
+            <div id="chatSectionBody" style="max-height: 0; overflow: hidden; transition: max-height 0.3s;">
+                <div style="padding: 1rem; max-height: 400px; overflow-y: auto; background: #13131a;" id="chatMessages">
+                    <div class="chat-msg bot" style="background: rgba(11,127,113,0.15); border: 1px solid rgba(11,127,113,0.25); border-radius: 12px; padding: 1rem; margin-bottom: 0.75rem; font-size: 0.9rem; color: rgba(255,255,255,0.85);">
+                        Hi Van! 👋 I'm Joe's AI assistant. I know all about the app we're building. Ask me anything!
+                    </div>
+                </div>
+                <div style="padding: 1rem; background: rgba(255,255,255,0.03); border-top: 1px solid rgba(255,255,255,0.06);">
+                    <div style="display: flex; gap: 0.75rem;">
+                        <input type="text" id="chatInput" placeholder="Type your question..." style="flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 0.85rem 1rem; color: #fff; font-size: 0.9rem;" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}">
+                        <button onclick="sendChatMessage()" style="background: #0b7f73; border: none; color: #fff; padding: 0.75rem 1rem; border-radius: 12px; cursor: pointer; font-weight: 600;">Send</button>
+                    </div>
+                    <div id="chatStatus" style="text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem;"></div>
+                </div>
+            </div>
+        </div>
+
+<footer>
             Made with ✨ for Van by <a href="https://www.joestechsolutions.com">Joe's Tech Solutions</a>
         </footer>
     </div>
 
     <!-- Chat Helper -->
-    <div class="chat-helper">
-        <button class="chat-btn" id="openChatBtn">
-            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
-        </button>
-
-    <!-- Inline Chat Modal -->
-    <div class="chat-modal" id="chatModal">
-        <div class="chat-box">
-            <div class="chat-header">
-                <div>
-                    <h4>Chat with Joe's AI</h4>
-                    <span>Knows everything about your app</span>
-                </div>
+    
                 <button class="chat-close" id="closeChat">×</button>
             </div>
             <div class="chat-body">
