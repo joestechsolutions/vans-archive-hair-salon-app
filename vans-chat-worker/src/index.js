@@ -2,11 +2,8 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: corsHeaders(),
-      });
+      return new Response(null, { headers: corsHeaders() });
     }
 
     if (url.pathname === '/chat' && request.method === 'POST') {
@@ -29,9 +26,80 @@ function corsHeaders() {
   };
 }
 
+const SEARCH_KEYWORDS = [
+  'address', 'location', 'where is', 'phone', 'contact', 'hours',
+  'price', 'cost', 'how much', 'product', 'supplier', 'brand',
+  'saloncentric', 'cosmoprof', 'glossgenius', 'vish', 'salonscale',
+  'competitor', 'yelp', 'review', 'google', 'website',
+  'open', 'closed', 'appointment', 'booking',
+  'san jose', 'california', 'downtown',
+  'what is', 'who is', 'tell me about', 'find',
+];
+
+function needsSearch(query) {
+  const lower = query.toLowerCase();
+  return SEARCH_KEYWORDS.some(kw => lower.includes(kw));
+}
+
+async function performTavilySearch(query, env) {
+  const apiKey = env.TAVILY_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const resp = await fetch('https://api.tavily.com/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        api_key: apiKey,
+        query,
+        search_depth: 'basic',
+        include_answer: true,
+        max_results: 5,
+      }),
+    });
+
+    if (!resp.ok) {
+      console.error('Tavily search failed:', resp.status);
+      return null;
+    }
+
+    return await resp.json();
+  } catch (err) {
+    console.error('Tavily error:', err.message);
+    return null;
+  }
+}
+
+function formatSearchResults(raw) {
+  const parts = [];
+  if (raw.answer) parts.push(`Summary: ${raw.answer}`);
+  if (raw.results && raw.results.length > 0) {
+    parts.push('\nWeb search results:');
+    for (const r of raw.results) {
+      parts.push(`\n- ${r.title}`);
+      parts.push(`  ${r.url}`);
+      if (r.content) {
+        const snippet = r.content.length > 300 ? r.content.slice(0, 300) + '...' : r.content;
+        parts.push(`  ${snippet}`);
+      }
+    }
+  }
+  return parts.join('\n') || 'No results found.';
+}
+
 async function handleChat(request, env) {
   try {
     const { message, formAnswers = {} } = await request.json();
+
+    const lowerMsg = message.toLowerCase();
+
+    let searchContext = '';
+    if (needsSearch(lowerMsg)) {
+      const results = await performTavilySearch(message, env);
+      if (results) {
+        searchContext = '\n\nWEB SEARCH RESULTS (use these to answer):\n' + formatSearchResults(results);
+      }
+    }
 
     const systemPrompt = `You are Joe's AI assistant helping Van with her hair stylist app planning.
 
@@ -62,24 +130,22 @@ PREMORTEM KEY RISKS:
 
 Van's form answers:
 ${JSON.stringify(formAnswers, null, 2)}
+${searchContext}
 
-Be helpful, concise. Answer directly. Keep under 200 words.`;
+Be concise. Answer directly based on what you know and the web search results provided above. Keep under 200 words.`;
 
     const response = await env.AI.run('@cf/meta/llama-3.3-70b-instruct-fp8-fast', {
       messages: [
         { role: 'system', content: systemPrompt },
-        { role: 'user', content: message }
+        { role: 'user', content: message },
       ],
-      max_tokens: 400,
+      max_tokens: 500,
     });
 
     const aiMessage = response.response || response.choices?.[0]?.message?.content || 'Sorry, I had trouble responding.';
 
     return new Response(JSON.stringify({ response: aiMessage }), {
-      headers: {
-        'Content-Type': 'application/json',
-        ...corsHeaders(),
-      },
+      headers: { 'Content-Type': 'application/json', ...corsHeaders() },
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: corsHeaders() });
@@ -90,18 +156,17 @@ async function handleFormSubmit(request, env) {
   try {
     const formData = await request.formData();
 
-    // Collect text answers (exclude file fields)
-    const textFields = ['priority','phone_use','vibe','colors','timeline','pain_point','dream_feature'];
+    const textFields = ['priority', 'phone_use', 'vibe', 'colors', 'timeline', 'pain_point', 'dream_feature'];
     const answers = {};
     for (const field of textFields) {
       const val = formData.get(field);
       if (val) answers[field] = val;
     }
 
-    const mods = {formulas:'Formulas',inventory:'Inventory',clients:'Client Notes',profitability:'Money'};
-    const vibs = {warm:'Warm & Cozy',clean:'Clean & Simple',bold:'Bold & Fun',dark:'Sleek & Dark'};
-    const phone = {minimal:'Almost none',some:'A few quick taps',batch:'After services'};
-    const time = {asap:'ASAP (Yesterday!)',months:'Couple months',exploring:'Just exploring'};
+    const mods = { formulas: 'Formulas', inventory: 'Inventory', clients: 'Client Notes', profitability: 'Money' };
+    const vibs = { warm: 'Warm & Cozy', clean: 'Clean & Simple', bold: 'Bold & Fun', dark: 'Sleek & Dark' };
+    const phone = { minimal: 'Almost none', some: 'A few quick taps', batch: 'After services' };
+    const time = { asap: 'ASAP (Yesterday!)', months: 'Couple months', exploring: 'Just exploring' };
 
     let body = "Van's App Answers\n";
     body += '━━━━━━━━━━━━━━━━━━━━\n\n';
@@ -113,7 +178,6 @@ async function handleFormSubmit(request, env) {
     if (answers.pain_point) body += '\nBiggest frustration:\n' + answers.pain_point + '\n';
     if (answers.dream_feature) body += '\nDream feature:\n' + answers.dream_feature + '\n';
 
-    // Collect links
     const links = [];
     let linkIdx = 1;
     while (formData.has('link' + linkIdx)) {
@@ -123,7 +187,6 @@ async function handleFormSubmit(request, env) {
     }
     if (links.length) body += '\nLinks:\n' + links.join('\n') + '\n';
 
-    // Process file attachments
     const attachments = [];
     const fileFields = ['photos', 'docs'];
     for (const field of fileFields) {
@@ -155,9 +218,7 @@ async function handleFormSubmit(request, env) {
       subject: "Van's App Answers",
       text: body,
     };
-    if (attachments.length) {
-      resendPayload.attachments = attachments;
-    }
+    if (attachments.length) resendPayload.attachments = attachments;
 
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
